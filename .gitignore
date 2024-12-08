@@ -22,6 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-App.jsx
 appsettings.json
 Program.cs
+/.vs/azzanorder.client/FileContentIndex/57028e86-c9f1-4c19-8f97-ce2b897f8e7f.vsidx
+/.vs/azzanorder.client/FileContentIndex/73562844-bb4d-4ee1-9706-a69b817a91e8.vsidx
