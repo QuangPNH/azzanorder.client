@@ -1,0 +1,40 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/menu",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/about",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/feedback",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/voucher",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/voucherCart",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/order",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/profile",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/notification",
+      "rewrite": "/index.html"
+    }
+  ]
+}
