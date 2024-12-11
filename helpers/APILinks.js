@@ -85,7 +85,7 @@ export const LIST_FEEDBACK = `${LOCALHOST_API}/api/MessengerBox`
 
 
 // LINK SHOP CLIENT
-export const LIST_PRODUCT = `http://localhost:3000/listProduct/`;
+export const LIST_PRODUCT = `https://https://polite-island-0f3a2cb00.4.azurestaticapps.net/listProduct/`;
 export const API_ORDER = `${LOCALHOST_API}/api/Order`;
 
 // LINK BLOG
