@@ -1,7 +1,7 @@
 // src/config/apiUrls.js
 const API_URLS = {
-    API: "https://localhost:7183/api/",
-    PAYOS: "https://localhost:3002/",
+    API: "https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net/api/",
+    PAYOS: "https://payos-b8gdexdug2h8bmh7.southeastasia-01.azurewebsites.net/",
     // Add other endpoints as needed
   };
   
