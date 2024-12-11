@@ -1,5 +1,5 @@
-export const LOCALHOST_API = "http://localhost:7183"
-
+//export const LOCALHOST_API = "http://localhost:7183"
+export const LOCALHOST_API = "http://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net"
 //export const LOCALHOST_API = "https://swp391-1817-net-g2.techtheworld.id.vn"
 
 
