@@ -35,8 +35,9 @@ const Homepage = () => {
                 await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
                 setShowRecentlyOrdered(true);
             }
-            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]){
-                setCookie('voucher', '' , -1);
+            const tableQrCookie = getCookie('tableqr');
+            if (tableQrCookie && id.split('/')[1] !== tableQrCookie.split('/')[1]) {
+                setCookie('voucher', '', -1);
                 setCookie('cartData', '' , -1);
             }
             if (id) {
