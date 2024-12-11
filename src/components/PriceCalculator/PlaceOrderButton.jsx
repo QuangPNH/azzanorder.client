@@ -72,7 +72,7 @@ export async function postOrder(amount, isCash) {
         if (isCash) {
             order.Status = null;
         }
-        const response = await fetch("https://localhost:7183/api/Order", {
+        const response = await fetch("https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net/api/Order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
