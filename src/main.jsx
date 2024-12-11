@@ -20,7 +20,7 @@ import VoucherCart from './components/VoucherCart';
 // Define your routes
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "./",
         element: <App />,
         children: [
             {
