@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { postOrder } from './PriceCalculator/PlaceOrderButton'
 import { calculateTotal } from './Cart'
@@ -21,7 +21,9 @@ const Homepage = () => {
     const [showRecentlyOrdered, setShowRecentlyOrdered] = useState(false);
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("tableqr");
-
+    const search = useLocation().search;
+    const status = new URLSearchParams(search).get("status");
+    const hasProcessedOrder = useRef(false);
     useEffect(() => {
         const memberInfo = getCookie('memberInfo');
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
@@ -44,10 +46,17 @@ const Homepage = () => {
             }
         };
 
-        
+        if (status === "success" && !hasProcessedOrder.current) {
+            hasProcessedOrder.current = true;
+            const processOrder = async () => {
+                const { total, totalDiscount } = await calculateTotal();
+                await postOrder(total);
+            };
+            processOrder();
+        }
 
         fetchData();
-    }, []);
+    }, [status]);
 
     useEffect(() => {
         if ('serviceWorker' in navigator) {

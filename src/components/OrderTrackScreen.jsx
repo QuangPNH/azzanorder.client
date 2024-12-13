@@ -11,9 +11,7 @@ import { useLocation } from "react-router-dom";
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
-    const search = useLocation().search;
-    const status = new URLSearchParams(search).get("status");
-    const hasProcessedOrder = useRef(false);
+    
     useEffect(() => {
         const tableqr = getCookie("tableqr");
         if (tableqr) {
@@ -23,15 +21,8 @@ const OrderTrackScreen = () => {
         if (getCookie("memberInfo")) {
              fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);
         }
-        if (status === "success" && !hasProcessedOrder.current) {
-                    hasProcessedOrder.current = true;
-                    const processOrder = async () => {
-                        const { total, totalDiscount } = await calculateTotal();
-                        await postOrder(total);
-                    };
-                    processOrder();
-                }
-    }, [status]);
+        
+    }, []);
 
     const fetchOrders = async (tableQr, id) => {
         try {
