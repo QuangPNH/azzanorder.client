@@ -21,6 +21,9 @@ async function AddPoint(memberId, amount) {
     if (!response2.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
+    else{
+        setCookie('voucher', '', -1);
+    }
 };
 
 export async function postOrder(amount, isCash) {
@@ -180,6 +183,6 @@ const PlaceOrderButton = ({ amount, isTake, isCash }) => {
 };
 const deleteCookie = () => {
     setCookie('cartData', '', -1); // Call setCookie with negative days to delete
-    setCookie('voucher', '', -1);
+
 };
 export default PlaceOrderButton;
