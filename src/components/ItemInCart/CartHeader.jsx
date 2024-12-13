@@ -88,7 +88,7 @@ const CartHeader = ({ headerText }) => {
 
     return (
         <div className="cartHeader">
-            <img src="../src/assets/shoppingCart1.svg" style={{ width: '30px', height: '26px' }} />
+            <img src="https://file.garden/Z0M_TIZxgjUCRpfy/LogoAOS/shoppingCart1.svg" style={{ width: '30px', height: '26px' }} />
             <p>Cart at table</p>
             <div className="dropdown1">
                 <div className="dropdown-toggle1" onClick={toggleDropdown}>
