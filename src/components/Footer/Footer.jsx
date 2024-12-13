@@ -63,7 +63,7 @@ const Footer = () => {
                     </address>
                 )}
                 <img
-                    src={logoSrc || "https://s6.imgcdn.dev/gl4Iv.png"}
+                    src={logoSrc || "https://file.garden/Z1wpFckJxRiY2oOg/b1a9ff71-1956-4f64-8ccc-e8ff999b8bc7.jpeg"}
                     alt="Company logo"
                     className="company-logo"
                     loading="lazy"
