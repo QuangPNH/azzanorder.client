@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
     RouterProvider,
+    Navigate,
 } from "react-router-dom";
 import "./index.css";
 import App from "./App";
@@ -15,7 +16,7 @@ import Order from "./components/OrderTrackScreen";
 import Profile from "./components/MemberProfile";
 import Notification from "./components/NotificationPage";
 import VoucherCart from './components/VoucherCart';
-
+import { getCookie } from './components/Account/SignUpForm/Validate';
 
 // Define your routes
 const router = createBrowserRouter([
@@ -63,10 +64,18 @@ const router = createBrowserRouter([
     },
 ]);
 
-// Wrap your app with the Router component and PopupProvider
 const rootElement = document.getElementById('root');
-ReactDOM.createRoot(rootElement).render(
-   /* <React.StrictMode>*/
+const searchParams = new URLSearchParams(window.location.search);
+const tableqrParam = searchParams.get("tableqr");
+const tableqrCookie = getCookie("tableqr");
+
+// Check if both tableqrParam and tableqrCookie are missing
+if (!tableqrParam && !tableqrCookie) {
+    // Redirect to the provided link
+    window.location.href = "https://manager-owner-bhcrh9dvahbkgpfu.southeastasia-01.azurewebsites.net/";
+} else {
+    // Render the RouterProvider if tableqrParam or tableqrCookie is present
+    ReactDOM.createRoot(rootElement).render(
         <RouterProvider router={router} />
-    /*</React.StrictMode>*/
-);
+    );
+}
