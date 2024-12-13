@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef} from 'react';
 import { useLocation } from "react-router-dom";
 import { postOrder } from './PriceCalculator/PlaceOrderButton'
 import { calculateTotal } from './Cart'
@@ -21,9 +21,10 @@ const Homepage = () => {
     const [showRecentlyOrdered, setShowRecentlyOrdered] = useState(false);
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("tableqr");
-    const search = useLocation().search;
     const status = new URLSearchParams(search).get("status");
-    const hasProcessedOrder = useRef(false);
+   
+       const hasProcessedOrder = useRef(false);
+
     useEffect(() => {
         const memberInfo = getCookie('memberInfo');
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
@@ -34,9 +35,8 @@ const Homepage = () => {
                 await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
                 setShowRecentlyOrdered(true);
             }
-            const tableQrCookie = getCookie('tableqr');
-            if (tableQrCookie && id.split('/')[1] !== tableQrCookie.split('/')[1]) {
-                setCookie('voucher', '', -1);
+            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]){
+                setCookie('voucher', '' , -1);
                 setCookie('cartData', '' , -1);
             }
             if (id) {

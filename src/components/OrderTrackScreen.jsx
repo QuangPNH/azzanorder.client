@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef  } from 'react';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import OrderItem from './TrackingOrder/OrderItem';
@@ -6,12 +6,10 @@ import OrderSummary from './TrackingOrder/OrderSummary';
 import Button from "./Account/SignUpForm/Button";
 import { getCookie } from './Account/SignUpForm/Validate';
 import API_URLS from '../config/apiUrls';
-import { useLocation } from "react-router-dom";
 
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
-    
     useEffect(() => {
         const tableqr = getCookie("tableqr");
         if (tableqr) {
@@ -21,7 +19,6 @@ const OrderTrackScreen = () => {
         if (getCookie("memberInfo")) {
              fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);
         }
-        
     }, []);
 
     const fetchOrders = async (tableQr, id) => {
