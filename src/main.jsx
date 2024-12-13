@@ -70,9 +70,9 @@ const tableqrParam = searchParams.get("tableqr");
 const tableqrCookie = getCookie("tableqr");
 
 // Check if both tableqrParam and tableqrCookie are missing
-if (!tableqrParam || !tableqrCookie) {
+if (!tableqrParam && !tableqrCookie) {
     // Redirect to the provided link
-    //window.location.href = "https://manager-owner-bhcrh9dvahbkgpfu.southeastasia-01.azurewebsites.net/";
+    window.location.href = "https://manager-owner-bhcrh9dvahbkgpfu.southeastasia-01.azurewebsites.net/";
 } else {
     // Render the RouterProvider if tableqrParam or tableqrCookie is present
     ReactDOM.createRoot(rootElement).render(
