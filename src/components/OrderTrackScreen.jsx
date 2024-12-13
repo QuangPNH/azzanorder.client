@@ -6,10 +6,12 @@ import OrderSummary from './TrackingOrder/OrderSummary';
 import Button from "./Account/SignUpForm/Button";
 import { getCookie } from './Account/SignUpForm/Validate';
 import API_URLS from '../config/apiUrls';
+import { useLocation } from "react-router-dom";
 
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
+    const search = useLocation().search;
     const status = new URLSearchParams(search).get("status");
     useEffect(() => {
         const tableqr = getCookie("tableqr");
@@ -27,7 +29,6 @@ const OrderTrackScreen = () => {
                         await postOrder(total);
                     };
                     processOrder();
-                    window.location.href = "https://polite-island-0f3a2cb00.4.azurestaticapps.net/order";
                 }
     }, [status]);
 
