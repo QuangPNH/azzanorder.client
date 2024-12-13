@@ -13,6 +13,7 @@ const OrderTrackScreen = () => {
     const [customerOrder, setCustomerOrder] = useState([]);
     const search = useLocation().search;
     const status = new URLSearchParams(search).get("status");
+    const hasProcessedOrder = useRef(false);
     useEffect(() => {
         const tableqr = getCookie("tableqr");
         if (tableqr) {
