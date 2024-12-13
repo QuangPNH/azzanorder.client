@@ -54,6 +54,7 @@ const Homepage = () => {
                 await postOrder(total);
             };
             processOrder();
+            window.location.href = "https://polite-island-0f3a2cb00.4.azurestaticapps.net/order";
         }
 
         fetchData();
