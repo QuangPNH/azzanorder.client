@@ -10,7 +10,7 @@ import API_URLS from '../config/apiUrls';
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
-
+    const status = new URLSearchParams(search).get("status");
     useEffect(() => {
         const tableqr = getCookie("tableqr");
         if (tableqr) {
@@ -20,7 +20,16 @@ const OrderTrackScreen = () => {
         if (getCookie("memberInfo")) {
              fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);
         }
-    }, []);
+        if (status === "success" && !hasProcessedOrder.current) {
+                    hasProcessedOrder.current = true;
+                    const processOrder = async () => {
+                        const { total, totalDiscount } = await calculateTotal();
+                        await postOrder(total);
+                    };
+                    processOrder();
+                    window.location.href = "https://polite-island-0f3a2cb00.4.azurestaticapps.net/order";
+                }
+    }, [status]);
 
     const fetchOrders = async (tableQr, id) => {
         try {

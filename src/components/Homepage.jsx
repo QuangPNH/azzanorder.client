@@ -21,7 +21,7 @@ const Homepage = () => {
     const [showRecentlyOrdered, setShowRecentlyOrdered] = useState(false);
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("tableqr");
-    const status = new URLSearchParams(search).get("status");
+    
 
     const hasProcessedOrder = useRef(false);
 
@@ -47,18 +47,10 @@ const Homepage = () => {
             }
         };
 
-        if (status === "success" && !hasProcessedOrder.current) {
-            hasProcessedOrder.current = true;
-            const processOrder = async () => {
-                const { total, totalDiscount } = await calculateTotal();
-                await postOrder(total);
-            };
-            processOrder();
-            window.location.href = "https://polite-island-0f3a2cb00.4.azurestaticapps.net/order";
-        }
+        
 
         fetchData();
-    }, [status]);
+    }, []);
 
     useEffect(() => {
         if ('serviceWorker' in navigator) {
