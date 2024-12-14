@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef  } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import OrderItem from './TrackingOrder/OrderItem';
@@ -10,15 +10,18 @@ import API_URLS from '../config/apiUrls';
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
-    useEffect(() => {
-        const tableqr = getCookie("tableqr");
-        if (tableqr) {
-            const [qr, id] = tableqr.split('/');
-            fetchOrders(qr, id);
-        }
-        if (getCookie("memberInfo")) {
-             fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);
-        }
+    useEffect(() => {  
+
+        const tableqr = getCookie("tableqr");  
+        if (tableqr) {  
+            const [qr, id] = tableqr.split('/');  
+            fetchOrders(qr, id);  
+            runFetchNotiChangeContinuously(qr);  
+        }  
+        
+        if (getCookie("memberInfo")) {  
+            fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);  
+        }  
     }, []);
 
     const fetchOrders = async (tableQr, id) => {
@@ -33,17 +36,17 @@ const OrderTrackScreen = () => {
         }
     };
 
-     const fetchCustomerOrder = async (customerId) => {
-         try {
-             const response = await fetch(API_URLS.API + `Order/GetCustomerOrder/${customerId}`);
-             if (response.ok) {
-                 const data = await response.json();
-                 setCustomerOrder(data);
-             }
-         } catch (error) {
-             console.error('Error fetching customer order:', error);
-         }
-     };
+    const fetchCustomerOrder = async (customerId) => {
+        try {
+            const response = await fetch(API_URLS.API + `Order/GetCustomerOrder/${customerId}`);
+            if (response.ok) {
+                const data = await response.json();
+                setCustomerOrder(data);
+            }
+        } catch (error) {
+            console.error('Error fetching customer order:', error);
+        }
+    };
 
     const mapStatus = (status) => {
         if (status === null) return 1;
@@ -54,7 +57,7 @@ const OrderTrackScreen = () => {
     const allOrdersCompleted = orders && orders.length > 0 && orders.every(order => order.status === true);
 
     const updateMemberPoints = async (memberId) => {
-        if(memberId != ''){
+        if (memberId != '') {
             try {
 
                 await fetch(API_URLS.API + `Member/UpdatePoints/memberId/point?memberId=${memberId}&point=25`);
@@ -64,6 +67,59 @@ const OrderTrackScreen = () => {
             window.location.href = '/';
         }
         window.location.href = '/';
+    };
+    const fetchNotiChange = async (tableQr) => {
+        try {
+            const response = await fetch(API_URLS.API + `NotiChanges/tableName/${tableQr}`);
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch (error) {
+            console.error('Error fetching notification change:', error);
+        }
+    };
+
+    const updateNotiChange = async (notiChange) => {
+        try {
+            const response = await fetch(API_URLS.API + 'NotiChanges', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(notiChange),
+            });
+            if (!response.ok) {
+                throw new Error('Error updating notification change');
+            }
+        } catch (error) {
+            console.error('Error updating notification change:', error);
+        }
+    };
+    const runFetchNotiChangeContinuously = (tableQr) => {
+        const fetchAndUpdateNotiChange = async () => {
+            let secondRunData = await fetchNotiChange(tableQr);
+            if (secondRunData && !secondRunData.isSent) {
+                const message = secondRunData.message;
+                generateNotification(message);
+                secondRunData.isSent = true;
+                await updateNotiChange(secondRunData);
+            }
+        };
+        fetchAndUpdateNotiChange(); // Initial call
+        setInterval(fetchAndUpdateNotiChange, 60000); // Subsequent calls every 60 seconds
+    };
+
+    const generateNotification = (message) => {
+        if (Notification.permission === "granted") {
+            new Notification("Notification", { body: message });
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    new Notification("Notification", { body: message });
+                }
+            });
+        }
     };
 
     const handleButtonClick = () => {
@@ -89,7 +145,7 @@ const OrderTrackScreen = () => {
                     <div style={{ marginTop: '20px', maxHeight: '400px', overflowY: 'auto' }}>
                         {orders.map((order, orderIndex) => (
                             <React.Fragment key={order.orderId}>
-                                <h3>Order {orderIndex +1}</h3>
+                                <h3>Order {orderIndex + 1}</h3>
                                 {order.orderDetails.map((orderDetail, detailIndex) => (
                                     <React.Fragment key={orderDetail.orderDetailId}>
                                         <OrderItem
@@ -104,27 +160,27 @@ const OrderTrackScreen = () => {
                                 {orderIndex < orders.length - 1 && <div className="order-item-spacing" />}
                             </React.Fragment>
                         ))}
-                         {customerOrder && (
+                        {customerOrder && (
                             <div style={{ marginTop: '20px' }}>
-                                    <h2>Customer Order</h2>
-                                    {customerOrder.map((order, orderIndex) => (
-                                        <React.Fragment key={order.orderId}>
-                                            {order.orderDetails.map((orderDetail, detailIndex) => (
-                                                <React.Fragment key={orderDetail.orderDetailId}>
-                                                    <OrderItem
-                                                        imageSrc={orderDetail.menuItem?.image || 'default-image-url'}
-                                                        title={orderDetail.menuItem?.itemName || 'Unknown Item'}
-                                                        details={[orderDetail.description || 'No details']}
-                                                        status={mapStatus(orderDetail.status)}
-                                                    />
-                                                    {detailIndex < order.orderDetails.length - 1 && <div className="order-item-spacing" />}
-                                                </React.Fragment>
-                                            ))}
-                                            {orderIndex < orders.length - 1 && <div className="order-item-spacing" />}
-                                        </React.Fragment>
-                                    ))}
+                                <h2>Customer Order</h2>
+                                {customerOrder.map((order, orderIndex) => (
+                                    <React.Fragment key={order.orderId}>
+                                        {order.orderDetails.map((orderDetail, detailIndex) => (
+                                            <React.Fragment key={orderDetail.orderDetailId}>
+                                                <OrderItem
+                                                    imageSrc={orderDetail.menuItem?.image || 'default-image-url'}
+                                                    title={orderDetail.menuItem?.itemName || 'Unknown Item'}
+                                                    details={[orderDetail.description || 'No details']}
+                                                    status={mapStatus(orderDetail.status)}
+                                                />
+                                                {detailIndex < order.orderDetails.length - 1 && <div className="order-item-spacing" />}
+                                            </React.Fragment>
+                                        ))}
+                                        {orderIndex < orders.length - 1 && <div className="order-item-spacing" />}
+                                    </React.Fragment>
+                                ))}
                             </div>
-                        )} 
+                        )}
                     </div>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -150,5 +206,7 @@ const OrderTrackScreen = () => {
         </>
     );
 };
+
+export default OrderTrackScreen;
 
 export default OrderTrackScreen;

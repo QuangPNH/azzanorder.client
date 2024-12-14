@@ -61,7 +61,91 @@ const Homepage = () => {
             registerServiceWorker();
         }
         fetchData();
+        generateNotiChange(getCookie('tableqr'), 'Welcome to our restaurant');
+        runFetchNotiChangeContinuously(getCookie('tableqr'));
     }, [status]);
+
+
+
+    const fetchNotiChange = async (tableQr) => {
+        try {
+            const response = await fetch(API_URLS.API + `NotiChanges/tableName/${tableQr}`);
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch (error) {
+            console.error('Error fetching notification change:', error);
+        }
+    };
+
+    const updateNotiChange = async (notiChange) => {
+        try {
+            const response = await fetch(API_URLS.API + 'NotiChanges', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(notiChange),
+            });
+            if (!response.ok) {
+                throw new Error('Error updating notification change');
+            }
+        } catch (error) {
+            console.error('Error updating notification change:', error);
+        }
+    };
+
+    const generateNotiChange = async (tableName, message) => {
+        const notiChange = {
+            id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
+            tableName: tableName,
+            message: message,
+            isSent: true,
+            dateCreated: new Date().toISOString()
+        };
+        try {
+            const response = await fetch(API_URLS.API + 'NotiChanges', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(notiChange),
+            });
+            if (!response.ok) {
+                throw new Error('Error generating notification change');
+            }
+        } catch (error) {
+            console.error('Error generating notification change:', error);
+        }
+    };
+
+
+    const runFetchNotiChangeContinuously = (tableQr) => {
+        const fetchAndUpdateNotiChange = async () => {
+            let secondRunData = await fetchNotiChange(tableQr);
+            if (secondRunData && !secondRunData.isSent) {
+                const message = secondRunData.message;
+                generateNotification(message);
+                secondRunData.isSent = true;
+                await updateNotiChange(secondRunData);
+            }
+        };
+        fetchAndUpdateNotiChange(); // Initial call
+        setInterval(fetchAndUpdateNotiChange, 60000); // Subsequent calls every 60 seconds
+    };
+
+    const generateNotification = (message) => {
+        if (Notification.permission === "granted") {
+            new Notification("Notification", { body: message });
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    new Notification("Notification", { body: message });
+                }
+            });
+        }
+    };
 
     const registerServiceWorker = () => {
         if ('serviceWorker' in navigator) {
