@@ -82,7 +82,7 @@ const OrderTrackScreen = () => {
 
     const updateNotiChange = async (notiChange) => {
         try {
-            const response = await fetch(API_URLS.API + 'NotiChanges' + notiChange.id, {
+            const response = await fetch(API_URLS.API + 'NotiChanges/' + notiChange.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
