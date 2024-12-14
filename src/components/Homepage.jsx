@@ -53,12 +53,13 @@ const Homepage = () => {
                 await postOrder(total);
             };
             processOrder();
+            sendNotification('Order successful', 'Your order has been placed successfully', '/images/logo192.png');
+            sendPostRequest('New Order Incoming !');
         }
 
         if (!hasRegisteredServiceWorker.current) {
             hasRegisteredServiceWorker.current = true;
             registerServiceWorker();
-            sendNotification('Welcome to Azzan', 'Enjoy your meal', '/images/logo.png');
         }
         fetchData();
     }, [status]);
@@ -97,6 +98,30 @@ const Homepage = () => {
                     });
                 }
             });
+        }
+    };
+
+    const sendPostRequest = async ( inputText ) => {
+        const url = 'https://oas-noti-api-handling-hqb2gxavecakdtey.southeastasia-01.azurewebsites.net/api/notifications/requests';
+        const body = {
+            text: inputText,
+            action: "action_b"
+        };
+        const headers = {
+            'Content-Type': 'application/json',
+            'apikey': '0624d820-6616-430d-92a5-e68265a08593'
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            console.log('Response:', data);
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
@@ -209,6 +234,12 @@ const Homepage = () => {
         </>
     );
 };
+
+function deleteCookie(name) {
+    setCookie(name, '', -1); // Call setCookie with negative days to delete  
+}
+
+export default Homepage;
 
 function deleteCookie(name) {
     setCookie(name, '', -1); // Call setCookie with negative days to delete  
