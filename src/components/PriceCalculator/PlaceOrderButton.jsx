@@ -132,7 +132,7 @@ const sendPostRequest = async (inputText) => {
     const url = 'https://oas-noti-api-handling-hqb2gxavecakdtey.southeastasia-01.azurewebsites.net/api/notifications/requests';
     const body = {
         text: inputText,
-        action: "action_b"
+        action: inputText
     };
     const headers = {
         'Content-Type': 'application/json',
