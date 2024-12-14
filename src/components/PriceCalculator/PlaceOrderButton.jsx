@@ -62,7 +62,6 @@ export async function postOrder(amount, isCash) {
         const tableId = cookieValue
             ? parseInt(cookieValue.split('/')[2] ?? 0)
             : null;
-
         let order = {
             TableId: tableId,
             Cost: amount,
@@ -90,6 +89,11 @@ export async function postOrder(amount, isCash) {
         const data = await response.json();
         console.log("Order created successfully:", data);
 
+        sendNotification('Order successful', 'Your order has been placed successfully', '/images/logo192.png');
+        if(isCash)
+            sendPostRequest('Confirm');
+        else
+            sendPostRequest('OrderSuccesses');
         if (memberIn) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
 
@@ -101,7 +105,51 @@ export async function postOrder(amount, isCash) {
         throw error;
     }
 }
+const sendNotification = (title, body, icon) => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+            if (Notification.permission === "granted") {
+                registration.showNotification(title, {
+                    body: body,
+                    icon: icon
+                });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        registration.showNotification(title, {
+                            body: body,
+                            icon: icon
+                        });
+                    }
+                });
+            }
+        });
+    }
+};
 
+const sendPostRequest = async (inputText) => {
+    const url = 'https://oas-noti-api-handling-hqb2gxavecakdtey.southeastasia-01.azurewebsites.net/api/notifications/requests';
+    const body = {
+        text: inputText,
+        action: inputText
+    };
+    const headers = {
+        'Content-Type': 'application/json',
+        'apikey': '0624d820-6616-430d-92a5-e68265a08593'
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        console.log('Response:', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
 const PlaceOrderButton = ({ amount, isTake, isCash }) => {
     const [qrDataURL, setQRDataURL] = useState(null);
     const [error, setError] = useState(null);
