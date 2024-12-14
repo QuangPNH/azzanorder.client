@@ -240,9 +240,3 @@ function deleteCookie(name) {
 }
 
 export default Homepage;
-
-function deleteCookie(name) {
-    setCookie(name, '', -1); // Call setCookie with negative days to delete  
-}
-
-export default Homepage;
