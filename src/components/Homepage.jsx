@@ -35,15 +35,16 @@ const Homepage = () => {
                 await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
                 setShowRecentlyOrdered(true);
             }
-            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
-                setCookie('voucher', '', -1);
-                setCookie('cartData', '', -1);
-            }
             if (id) {
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
             }
+            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
+                setCookie('voucher', '', -1);
+                setCookie('cartData', '', -1);
+            }
+            
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
