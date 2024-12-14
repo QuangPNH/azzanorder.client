@@ -79,3 +79,4 @@ if (!tableqrParam && !tableqrCookie) {
         <RouterProvider router={router} />
     );
 }
+

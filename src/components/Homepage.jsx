@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef} from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { postOrder } from './PriceCalculator/PlaceOrderButton'
 import { calculateTotal } from './Cart'
@@ -22,22 +22,22 @@ const Homepage = () => {
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("tableqr");
     const status = new URLSearchParams(search).get("status");
-   
-       const hasProcessedOrder = useRef(false);
+    const hasRegisteredServiceWorker = useRef(false);
+    const hasProcessedOrder = useRef(false);
 
     useEffect(() => {
         const memberInfo = getCookie('memberInfo');
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
-        
+
         const fetchData = async () => {
             await fetchMenuItems(id ? id.split('/')[1] : null);
             if (memberId) {
                 await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
                 setShowRecentlyOrdered(true);
             }
-            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]){
-                setCookie('voucher', '' , -1);
-                setCookie('cartData', '' , -1);
+            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
+                setCookie('voucher', '', -1);
+                setCookie('cartData', '', -1);
             }
             if (id) {
                 setCookie('tableqr', '', -1);
@@ -55,31 +55,20 @@ const Homepage = () => {
             processOrder();
         }
 
+        if (!hasRegisteredServiceWorker.current) {
+            hasRegisteredServiceWorker.current = true;
+            registerServiceWorker();
+            sendNotification('Welcome to Azzan', 'Enjoy your meal', '/images/logo.png');
+        }
         fetchData();
     }, [status]);
 
-    useEffect(() => {
+    const registerServiceWorker = () => {
         if ('serviceWorker' in navigator) {
             console.log('Service worker supported');
             navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    // Check notification permission and display welcome notification
-                    if (Notification.permission === "granted") {
-                        registration.showNotification("Hello", {
-                            body: "Welcome to our site!",
-                            icon: "/path/to/icon.png"
-                        });
-                    } else if (Notification.permission !== "denied") {
-                        Notification.requestPermission().then(permission => {
-                            if (permission === "granted") {
-                                registration.showNotification("Hello", {
-                                    body: "Welcome to our site!",
-                                    icon: "/path/to/icon.png"
-                                });
-                            }
-                        });
-                    }
                 })
                 .catch(error => {
                     console.log('ServiceWorker registration failed: ', error);
@@ -87,7 +76,29 @@ const Homepage = () => {
         } else {
             console.log('Service worker not supported');
         }
-    }, []);
+    };
+
+    const sendNotification = (title, body, icon) => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                if (Notification.permission === "granted") {
+                    registration.showNotification(title, {
+                        body: body,
+                        icon: icon
+                    });
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            registration.showNotification(title, {
+                                body: body,
+                                icon: icon
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    };
 
     window.addEventListener('load', () => {
         console.log('Window loaded');

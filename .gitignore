@@ -24,6 +24,7 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+.vs\azzanorder.client\CopilotIndices\0.2.1657.32929/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
