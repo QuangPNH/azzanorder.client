@@ -62,7 +62,6 @@ export async function postOrder(amount, isCash) {
         const tableId = cookieValue
             ? parseInt(cookieValue.split('/')[2] ?? 0)
             : null;
-        const id = tableId;
         let order = {
             TableId: tableId,
             Cost: amount,
@@ -92,9 +91,9 @@ export async function postOrder(amount, isCash) {
 
         sendNotification('Order successful', 'Your order has been placed successfully', '/images/logo192.png');
         if(isCash)
-            sendPostRequest(id + '/Order Need To Be Confirm Incoming !');
+            sendPostRequest('Order Need To Be Confirm Incoming !');
         else
-            sendPostRequest(id + '/New Order Incoming !');
+            sendPostRequest('New Order Incoming !');
         if (memberIn) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
 
