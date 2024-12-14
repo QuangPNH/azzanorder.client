@@ -91,9 +91,9 @@ export async function postOrder(amount, isCash) {
 
         sendNotification('Order successful', 'Your order has been placed successfully', '/images/logo192.png');
         if(isCash)
-            sendPostRequest('Order Need To Be Confirm Incoming !');
+            sendPostRequest('Confirm');
         else
-            sendPostRequest('New Order Incoming !');
+            sendPostRequest('OrderSuccesses');
         if (memberIn) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
 
