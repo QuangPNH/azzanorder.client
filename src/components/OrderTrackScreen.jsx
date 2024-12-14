@@ -208,5 +208,3 @@ const OrderTrackScreen = () => {
 };
 
 export default OrderTrackScreen;
-
-export default OrderTrackScreen;
