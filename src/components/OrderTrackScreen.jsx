@@ -82,7 +82,7 @@ const OrderTrackScreen = () => {
 
     const updateNotiChange = async (notiChange) => {
         try {
-            const response = await fetch(API_URLS.API + 'NotiChanges', {
+            const response = await fetch(API_URLS.API + 'NotiChanges' + notiChange.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ const OrderTrackScreen = () => {
             }
         };
         fetchAndUpdateNotiChange(); // Initial call
-        setInterval(fetchAndUpdateNotiChange, 60000); // Subsequent calls every 60 seconds
+        setInterval(fetchAndUpdateNotiChange, 20000); // Subsequent calls every 60 seconds
     };
 
     const generateNotification = (message) => {
