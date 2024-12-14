@@ -32,22 +32,22 @@ const ItemInCart = ({ id, name, options, price, quantity, onQuantityChange }) =>
                 cartData = JSON.parse(getCookie("cartData"));
             }
 
-            if (getCookie("voucher")) {
-                voucher = JSON.parse(getCookie('voucher'));
-            }
+            //if (getCookie("voucher")) {
+            //    voucher = JSON.parse(getCookie('voucher'));
+            //}
 
             const updatedCartData = await Promise.all(cartData.map(async (item) => {
-                let discountAmount = 0; // Default discount is 0
-                const emp =  JSON.parse(getCookie('memberInfo'));
+                //let discountAmount = 0; // Default discount is 0
+                //const emp =  JSON.parse(getCookie('memberInfo'));
                 if (item.id === id && JSON.stringify(item.options) === JSON.stringify(options)) {
                     // Check if the item is valid with the voucher
-                    const data = await checkLegal(item, emp.memberId, voucher);
+                    //const data = await checkLegal(item, emp.memberId, voucher);
 
                     // If `data` is valid (e.g., `data` is not empty or has necessary properties)
-                    if (data == true) {
-                        discountAmount = item.price * (voucher.discount / 100);
+                    //if (data == true) {
+                    //    discountAmount = item.price * (voucher.discount / 100);
 
-                    }
+                    //}
 
                     return {
                         ...item,
@@ -58,7 +58,7 @@ const ItemInCart = ({ id, name, options, price, quantity, onQuantityChange }) =>
                             selectedIce,
                             selectedToppings
                         },
-                        discount: discountAmount
+                        //discount: discountAmount
                     };
                 }
                 return item;
