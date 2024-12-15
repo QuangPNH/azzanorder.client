@@ -137,11 +137,19 @@ const Homepage = () => {
 
     const generateNotification = (message) => {
         if (Notification.permission === "granted") {
-            new Notification("Notification", { body: message });
+            navigator.serviceWorker.getRegistration().then(registration => {
+                if (registration) {
+                    registration.showNotification("Notification", { body: message });
+                }
+            });
         } else if (Notification.permission !== "denied") {
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
-                    new Notification("Notification", { body: message });
+                    navigator.serviceWorker.getRegistration().then(registration => {
+                        if (registration) {
+                            registration.showNotification("Notification", { body: message });
+                        }
+                    });
                 }
             });
         }
