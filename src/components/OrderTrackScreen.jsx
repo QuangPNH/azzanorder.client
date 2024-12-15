@@ -107,7 +107,7 @@ const OrderTrackScreen = () => {
             }
         };
         fetchAndUpdateNotiChange(); // Initial call
-        setInterval(fetchAndUpdateNotiChange, 20000); // Subsequent calls every 60 seconds
+        setInterval(fetchAndUpdateNotiChange, 10000); // Subsequent calls every 60 seconds
     };
 
     const generateNotification = (message) => {

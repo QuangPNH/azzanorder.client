@@ -9,6 +9,7 @@
     <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">vite build</PackageJsonScriptsBuild>
     <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint .</PackageJsonScriptsLint>
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
+    <PackageJsonDependenciesAzureNotificationHubs Condition="$(PackageJsonDependenciesAzureNotificationHubs) == ''">^2.0.0</PackageJsonDependenciesAzureNotificationHubs>
     <PackageJsonDependenciesChakraUiReact Condition="$(PackageJsonDependenciesChakraUiReact) == ''">^2.8.2</PackageJsonDependenciesChakraUiReact>
     <PackageJsonDependenciesEmotionReact Condition="$(PackageJsonDependenciesEmotionReact) == ''">^11.13.3</PackageJsonDependenciesEmotionReact>
     <PackageJsonDependenciesEmotionStyled Condition="$(PackageJsonDependenciesEmotionStyled) == ''">^11.13.0</PackageJsonDependenciesEmotionStyled>
@@ -19,6 +20,7 @@
     <PackageJsonDependenciesEvents Condition="$(PackageJsonDependenciesEvents) == ''">^3.3.0</PackageJsonDependenciesEvents>
     <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^4.21.1</PackageJsonDependenciesExpress>
     <PackageJsonDependenciesExpressPinoLogger Condition="$(PackageJsonDependenciesExpressPinoLogger) == ''">^7.0.0</PackageJsonDependenciesExpressPinoLogger>
+    <PackageJsonDependenciesFirebase Condition="$(PackageJsonDependenciesFirebase) == ''">^11.1.0</PackageJsonDependenciesFirebase>
     <PackageJsonDependenciesFramerMotion Condition="$(PackageJsonDependenciesFramerMotion) == ''">^11.7.0</PackageJsonDependenciesFramerMotion>
     <PackageJsonDependenciesHttp Condition="$(PackageJsonDependenciesHttp) == ''">^0.0.1-security</PackageJsonDependenciesHttp>
     <PackageJsonDependenciesPath Condition="$(PackageJsonDependenciesPath) == ''">^0.12.7</PackageJsonDependenciesPath>
@@ -42,6 +44,6 @@
     <PackageJsonDevdependenciesReactRouterDom Condition="$(PackageJsonDevdependenciesReactRouterDom) == ''">^6.27.0</PackageJsonDevdependenciesReactRouterDom>
     <PackageJsonDevdependenciesStyledJsx Condition="$(PackageJsonDevdependenciesStyledJsx) == ''">^5.1.6</PackageJsonDevdependenciesStyledJsx>
     <PackageJsonDevdependenciesTwilio Condition="$(PackageJsonDevdependenciesTwilio) == ''">^5.3.3</PackageJsonDevdependenciesTwilio>
-    <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^5.4.8</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^5.4.11</PackageJsonDevdependenciesVite>
   </PropertyGroup>
 </Project>
