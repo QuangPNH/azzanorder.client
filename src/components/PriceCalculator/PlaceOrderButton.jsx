@@ -74,7 +74,7 @@ export async function postOrder(amount, isCash) {
         if (isCash) {
             order.Status = null;
         }
-        const response = await fetch("https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net/api/Order", {
+        const response = await fetch(API_URLS.API + "api/Order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -90,10 +90,16 @@ export async function postOrder(amount, isCash) {
         console.log("Order created successfully:", data);
 
         sendNotification('Order successful', 'Your order has been placed successfully', '/images/logo192.png');
-        if(isCash)
-            sendPostRequest('Confirm');
-        else
-            sendPostRequest('OrderSuccesses');
+        if (isCash) {
+            const tableQrParts = getCookie('tableqr').split('/');
+            postStaffNotiChannel(tableQrParts[0], tableQrParts[1], "New Confirmed Order Paid With Cash");
+            sendPostRequest("Confirm Order Paid With Cash", "Confirm");
+        }
+        else {
+            const tableQrParts = getCookie('tableqr').split('/');
+            postStaffNotiChannel(tableQrParts[0], tableQrParts[1], "New Confirmed Order Paid With Bank Transfer");
+            sendPostRequest("Confirm Order Paid With Bank Transfer", "Confirm");
+        }
         if (memberIn) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
 
@@ -126,12 +132,35 @@ const sendNotification = (title, body, icon) => {
         });
     }
 };
-
-const sendPostRequest = async (inputText) => {
-    const url = 'https://oas-noti-api-handling-hqb2gxavecakdtey.southeastasia-01.azurewebsites.net/api/notifications/requests';
+const postStaffNotiChannel = async (tableQR, managerId, message) => {
+    const staffNotiChannel = {
+        id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
+        tableQR: tableQR,
+        managerId: managerId,
+        message: message,
+        dateAdded: new Date().toISOString(),
+        isSent: true
+    };
+    try {
+        const response = await fetch(API_URLS.API + 'StaffNotiChannels', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(staffNotiChannel),
+        });
+        if (!response.ok) {
+            throw new Error('Error posting staff notification channel');
+        }
+    } catch (error) {
+        console.error('Error posting staff notification channel:', error);
+    }
+};
+const sendPostRequest = async (inputText, action) => {
+    const url = API_URLS.NOTHUB + 'api/notifications/requests';
     const body = {
         text: inputText,
-        action: inputText
+        action: action
     };
     const headers = {
         'Content-Type': 'application/json',

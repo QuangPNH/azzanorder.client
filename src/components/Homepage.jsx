@@ -54,6 +54,9 @@ const Homepage = () => {
                 await postOrder(total);
             };
             processOrder();
+            const tableQrParts = getCookie('tableqr').split('/');
+            postStaffNotiChannel(tableQrParts[0], tableQrParts[1], 'New Incoming Order !');
+            sendPostRequest("New Incoming Order !","Confirm");
         }
 
         if (!hasRegisteredServiceWorker.current) {
@@ -66,6 +69,29 @@ const Homepage = () => {
     }, [status]);
 
 
+    const sendPostRequest = async (inputText, action) => {
+        const url = API_URLS.NOTHUB + 'api/notifications/requests';
+        const body = {
+            text: inputText,
+            action: action
+        };
+        const headers = {
+            'Content-Type': 'application/json',
+            'apikey': '0624d820-6616-430d-92a5-e68265a08593'
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            console.log('Response:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     const fetchNotiChange = async (tableQr) => {
         try {
@@ -93,6 +119,30 @@ const Homepage = () => {
             }
         } catch (error) {
             console.error('Error updating notification change:', error);
+        }
+    };
+    const postStaffNotiChannel = async (tableQR, managerId, message) => {
+        const staffNotiChannel = {
+            id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
+            tableQR: tableQR,
+            managerId: managerId,
+            message: message,
+            dateAdded: new Date().toISOString(),
+            isSent: true
+        };
+        try {
+            const response = await fetch(API_URLS.API + 'StaffNotiChannels', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(staffNotiChannel),
+            });
+            if (!response.ok) {
+                throw new Error('Error posting staff notification channel');
+            }
+        } catch (error) {
+            console.error('Error posting staff notification channel:', error);
         }
     };
 

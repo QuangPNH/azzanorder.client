@@ -2,6 +2,7 @@
 const API_URLS = {
     API: "https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net/api/",
     PAYOS: "https://payos-b8gdexdug2h8bmh7.southeastasia-01.azurewebsites.net/",
+    NOTHUB: "https://oas-noti-api-handling-hqb2gxavecakdtey.southeastasia-01.azurewebsites.net/"
     // Add other endpoints as needed
   };
   
