@@ -74,7 +74,7 @@ export async function postOrder(amount, isCash) {
         if (isCash) {
             order.Status = null;
         }
-        const response = await fetch(API_URLS.API + "api/Order", {
+        const response = await fetch(API_URLS.API + "Order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
