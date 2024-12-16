@@ -98,7 +98,7 @@ export async function postOrder(amount, isCash) {
         else {
             const tableQrParts = getCookie('tableqr').split('/');
             postStaffNotiChannel(tableQrParts[0], tableQrParts[1], "New Confirmed Order Paid With Bank Transfer");
-            sendPostRequest("Confirm Order Paid With Bank Transfer", "Confirm");
+            sendPostRequest("Confirm Order Paid With Bank Transfer", "OrderSuccesses");
         }
         if (memberIn) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
