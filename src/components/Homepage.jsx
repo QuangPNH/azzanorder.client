@@ -54,14 +54,6 @@ const Homepage = () => {
                 await postOrder(total);
             };
             processOrder();
-            const tableQrParts = getCookie('tableqr').split('/');
-
-            //send notification to staff when order is confirmed
-            postStaffNotiChannel(tableQrParts[0], tableQrParts[1], 'New Incoming Order !');
-            sendPostRequest("New Incoming Order !", "Confirm");
-
-            //Client Notification when order is sent
-            generateNotification("Your order has been sent!");
         }
 
         if (!hasRegisteredServiceWorker.current) {
