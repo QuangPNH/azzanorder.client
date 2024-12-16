@@ -123,12 +123,11 @@ const Homepage = () => {
     };
     const postStaffNotiChannel = async (tableQR, managerId, message) => {
         const staffNotiChannel = {
-            id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
             tableQR: tableQR,
             managerId: managerId,
             message: message,
             dateAdded: new Date().toISOString(),
-            isSent: true
+            isSent: false
         };
         try {
             const response = await fetch(API_URLS.API + 'StaffNotiChannels', {
