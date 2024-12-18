@@ -11,24 +11,8 @@
       "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:src\\components\\homepage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\src\\components\\notification\\notificationpagetitle.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:src\\components\\notification\\notificationpagetitle.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\staticwebapp.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:staticwebapp.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\vite.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:vite.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|c:\\users\\pham quang\\documents\\school_projects\\7.fall2024\\capstoneproject\\mainproject\\azzanorder\\quangpnh\\azzanorder.client\\src\\components\\pricecalculator\\placeorderbutton.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0433353A-7ABC-4351-A009-B82FBC280DC5}|azzanorder.client.esproj|solutionrelative:src\\components\\pricecalculator\\placeorderbutton.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -37,8 +21,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 203,
-          "SelectedChildIndex": 61,
+          "DockedWidth": 151,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -285,6 +269,20 @@
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 154,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "OrderTrackScreen.jsx",
@@ -292,9 +290,9 @@
               "RelativeDocumentMoniker": "src\\components\\OrderTrackScreen.jsx",
               "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\OrderTrackScreen.jsx",
               "RelativeToolTip": "src\\components\\OrderTrackScreen.jsx",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAAAG0AAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAFIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-14T02:49:16.372Z",
+              "WhenOpened": "2024-12-15T17:02:29.897Z",
               "EditorCaption": ""
             },
             {
@@ -305,82 +303,24 @@
               "RelativeDocumentMoniker": "src\\components\\Homepage.jsx",
               "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\Homepage.jsx",
               "RelativeToolTip": "src\\components\\Homepage.jsx",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAkwEIAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-13T23:56:42.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "staticwebapp.config.json",
-              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\staticwebapp.config.json",
-              "RelativeDocumentMoniker": "staticwebapp.config.json",
-              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\staticwebapp.config.json",
-              "RelativeToolTip": "staticwebapp.config.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-14T00:19:46.167Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NotificationPageTitle.jsx",
-              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\Notification\\NotificationPageTitle.jsx",
-              "RelativeDocumentMoniker": "src\\components\\Notification\\NotificationPageTitle.jsx",
-              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\Notification\\NotificationPageTitle.jsx",
-              "RelativeToolTip": "src\\components\\Notification\\NotificationPageTitle.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-14T00:01:39.337Z",
+              "WhenOpened": "2024-12-15T03:08:29.117Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "main.jsx",
-              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\main.jsx",
-              "RelativeDocumentMoniker": "src\\main.jsx",
-              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\main.jsx",
-              "RelativeToolTip": "src\\main.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAPAAAAAAAAAA==",
+              "Title": "PlaceOrderButton.jsx",
+              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\PriceCalculator\\PlaceOrderButton.jsx",
+              "RelativeDocumentMoniker": "src\\components\\PriceCalculator\\PlaceOrderButton.jsx",
+              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\src\\components\\PriceCalculator\\PlaceOrderButton.jsx",
+              "RelativeToolTip": "src\\components\\PriceCalculator\\PlaceOrderButton.jsx",
+              "ViewState": "AgIAAE0AAAAAAAAAAAArwF8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-13T23:50:43.859Z",
+              "WhenOpened": "2024-12-15T09:43:03.228Z",
               "EditorCaption": ""
             },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "vite.config.js",
-              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\vite.config.js",
-              "RelativeDocumentMoniker": "vite.config.js",
-              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\vite.config.js",
-              "RelativeToolTip": "vite.config.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-13T23:51:12.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\index.html",
-              "RelativeDocumentMoniker": "index.html",
-              "ToolTip": "C:\\Users\\Pham Quang\\Documents\\School_projects\\7.Fall2024\\CapstoneProject\\MainProject\\AzzanOrder\\QuangPNH\\azzanorder.client\\index.html",
-              "RelativeToolTip": "index.html",
-              "ViewState": "AgIAAAQAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-13T23:51:10.152Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 102,
-          "SelectedChildIndex": -1,
-          "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:26:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
@@ -440,6 +380,14 @@
             {
               "$type": "Bookmark",
               "Name": "ST:17:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:18:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:19:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             }
           ]
         }
