@@ -144,7 +144,6 @@ const Homepage = () => {
 
     const generateNotiChange = async (tableName, message) => {
         const notiChange = {
-            id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
             tableName: tableName,
             message: message,
             isSent: true,
