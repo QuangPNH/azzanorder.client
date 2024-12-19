@@ -39,6 +39,8 @@ const Homepage = () => {
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
+                generateNotiChange(id, 'Welcome to our restaurant');
+                runFetchNotiChangeContinuously(id);
             }
             if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
                 setCookie('voucher', '', -1);
@@ -61,8 +63,7 @@ const Homepage = () => {
             registerServiceWorker();
         }
         fetchData();
-        generateNotiChange(getCookie('tableqr'), 'Welcome to our restaurant');
-        runFetchNotiChangeContinuously(getCookie('tableqr'));
+
     }, [status]);
 
 
