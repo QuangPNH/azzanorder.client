@@ -42,13 +42,15 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
         const receivedOTP = sessionStorage.getItem('savedOTP');
         if (enterOTP === receivedOTP) {
             setCookie('memberInfo', JSON.stringify(sessionStorage.getItem('memberInfo')), 100);
-            let response = await fetch(API_URLS.API + `Member/`, {
+            let response = await fetch(API_URLS.API + `Member/Add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: sessionStorage.getItem('memberInfo'),
             });
+            const data = await response.json();
+            setCookie('memberInfo', JSON.stringify(data), 100);
             console.log('OTP verified and member info saved', response);
             window.location.href = '';
         } else {
