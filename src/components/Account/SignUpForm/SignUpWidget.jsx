@@ -26,7 +26,6 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
             if (response.ok) {
                 memberInfo = await response.json();
                 sessionStorage.setItem('memberInfo', JSON.stringify(memberInfo));
-                sessionStorage.setItem('savedOTP', memberInfo.memberName); // Assuming OTP is memberName
                 setOTPSent(true);  // Proceed to OTP step
             } else if (response.status === 400) {
                 const result = 'fail';
@@ -39,23 +38,43 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
 
     const handleSubmitOTP = async (event) => {
         event.preventDefault();
-        const receivedOTP = sessionStorage.getItem('savedOTP');
-        if (enterOTP === receivedOTP) {
-            setCookie('memberInfo', JSON.stringify(sessionStorage.getItem('memberInfo')), 100);
-            let response = await fetch(API_URLS.API + `Member/Add`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: sessionStorage.getItem('memberInfo'),
-            });
-            const data = await response.json();
-            setCookie('memberInfo', JSON.stringify(data), 100);
-            console.log('OTP verified and member info saved', response);
-            window.location.href = '';
-        } else {
-            console.error('Incorrect OTP');
+        try {
+            let response = await fetch(API_URLS.API + `Member/VerifyOTP/${enterOTP}?phone=${phoneNumber}`);
+            if (response.ok) {
+                setCookie('memberInfo', JSON.stringify(sessionStorage.getItem('memberInfo')), 100);
+                let response = await fetch(API_URLS.API + `Member/Add`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: sessionStorage.getItem('memberInfo'),
+                });
+                const data = await response.json();
+                setCookie('memberInfo', JSON.stringify(data), 100);
+                console.log('OTP verified and member info saved', response);
+                window.location.href = '';
+            } else {
+                console.error('Incorrect OTP');
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
+        // const receivedOTP = sessionStorage.getItem('savedOTP');
+        // if (enterOTP === receivedOTP) {
+        //     let response = await fetch(API_URLS.API + `Member/Add`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: sessionStorage.getItem('memberInfo'),
+        //     });
+        //     const data = await response.json();
+        //     setCookie('memberInfo', JSON.stringify(data), 100);
+        //     console.log('OTP verified and member info saved', response);
+        //     window.location.href = '';
+        // } else {
+        //     console.error('Incorrect OTP');
+        // }
     };
 
     return (
