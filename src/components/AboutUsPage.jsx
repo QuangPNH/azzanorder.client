@@ -15,9 +15,11 @@ const Homepage = () => {
     }, []);
     const fetchAbout = async (id) => {
         try {
-            const response = await fetch(API_URLS.API + `Abouts?ownerId=${id}`);
+            const response = await fetch(API_URLS.API + `Employee/${id}`);
             const data = await response.json();
-            setAbout(data);
+            const response1 = await fetch(API_URLS.API + `Abouts?ownerId=${data.ownerId}`);
+            const data1 = await response1.json();
+            setAbout(data1);
         } catch (error) {
             console.error('Error fetching menu items:', error);
         }
