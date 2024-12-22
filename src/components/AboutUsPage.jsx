@@ -4,17 +4,18 @@ import Header from '../components/Header/Header';
 import Banner from '../components/HomeItem/Banner';
 import AboutUs from './AboutUsComponent/AboutUs';
 import API_URLS from '../config/apiUrls';
-
+import { getCookie } from './Account/SignUpForm/Validate';
 
 
 const Homepage = () => {
+    const manaId = getCookie("tableqr");
     const [about, setAbout] = useState();
     useEffect(() => {
-        fetchAbout();
+        fetchAbout(manaId.split('/')[1]);
     }, []);
-    const fetchAbout = async () => {
+    const fetchAbout = async (id) => {
         try {
-            const response = await fetch(API_URLS.API + `Abouts`);
+            const response = await fetch(API_URLS.API + `Abouts?ownerId=${id}`);
             const data = await response.json();
             setAbout(data);
         } catch (error) {
