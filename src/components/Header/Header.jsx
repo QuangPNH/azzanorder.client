@@ -16,7 +16,7 @@ const Header = () => {
     const [backgroundColor, setBackgroundColor] = useState('#f6b5b5'); // Default background color
 
     useEffect(() => {
-        const tableqr = getCookie("tableqr");
+        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
         if (tableqr) {
             // Fetch the background color based on the tableqr value
             const fetchBackgroundColor = async (manaId) => {
@@ -31,7 +31,7 @@ const Header = () => {
                     console.error("Failed to fetch background color:", error);
                 }
             };
-            fetchBackgroundColor();
+            fetchBackgroundColor(tableqr);
         }
     }, []);
 
