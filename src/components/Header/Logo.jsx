@@ -6,7 +6,7 @@ const Logo = () => {
     const [logoSrc, setLogoSrc] = useState('');
 
     useEffect(() => {
-        const tableqr = getCookie("tableqr");
+        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
         if (tableqr) {
             // Fetch the logo URL based on the tableqr value
             const fetchLogoSrc = async (manaId) => {
@@ -22,7 +22,7 @@ const Logo = () => {
                     console.error("Failed to fetch logo URL:", error);
                 }
             };
-            fetchLogoSrc();
+            fetchLogoSrc(tableqr);
         }
     }, []);
 

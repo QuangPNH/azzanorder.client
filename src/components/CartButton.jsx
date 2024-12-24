@@ -17,7 +17,7 @@ const CartButton = () => {
     };
 
     useEffect(() => {
-        const tableqr = getCookie("tableqr");
+        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
         if (tableqr) {
             // Fetch the Cart color based on the tableqr value
             const fetchCartColor = async (manaId) => {
@@ -33,7 +33,7 @@ const CartButton = () => {
                     console.error("Failed to fetch Cart color:", error);
                 }
             };
-            fetchCartColor();
+            fetchCartColor(tableqr);
         }
     }, []);
     return (
