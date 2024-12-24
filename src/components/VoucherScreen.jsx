@@ -40,8 +40,8 @@ const VoucherScreen = () => {
             const data = await response.json();
             let a = [];
             for (let i of data) {
-               
-                if (i.endDate > new Date().toISOString() || i.endDate === null) {
+
+                if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
                     a.push(i);
                 }
             }
@@ -57,23 +57,23 @@ const VoucherScreen = () => {
             const holdId = manaId;
             const response = category == '' ? await fetch(API_URLS.API + `VoucherDetail/ListVoucherDetail?employeeId=${holdId}`) : await fetch(API_URLS.API + `VoucherDetail/categoryId?categoryId=${category}&employeeId=${holdId}`);
             const data = await response.json();
-            
+
             if (category == '') {
-            let a = [];
-            for (let i of data) {
-                if (i.endDate > new Date().toISOString() || i.endDate === null) {
-                    a.push(i);
+                let a = [];
+                for (let i of data) {
+                    if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
+                        a.push(i);
+                    }
                 }
-            }
                 setAllVouchers(a);
             } else {
                 setAllVouchers(false);
-            let a = [];
-            for (let i of data) {
-                if (i.voucherDetail.endDate > new Date().toISOString() || i.voucherDetail.endDate === null) {
-                    a.push(i);
+                let a = [];
+                for (let i of data) {
+                    if (i.voucherDetail.endDate > new Date().toISOString() && i.voucherDetail.startDate <= new Date().toISOString() || i.voucherDetail.endDate === null) {
+                        a.push(i);
+                    }
                 }
-            }
                 setVouchers(a);
 
             }
@@ -107,7 +107,7 @@ const VoucherScreen = () => {
     const handleDropdownChange = (selectedCategory) => {
         if (manaId) {
             fetchVouchers(selectedCategory, manaId.split('/')[1]);
-        }else{
+        } else {
             fetchVouchers(selectedCategory, '');
         }
     };
@@ -146,9 +146,6 @@ const VoucherScreen = () => {
                         ))}
                     </div>
                 )}
-
-                {/* <Category /> */}
-                <p>0934422800</p>
                 <Dropdown
                     options={categories.map(category => category.description)}
                     onClick2={handleDropdownChange}

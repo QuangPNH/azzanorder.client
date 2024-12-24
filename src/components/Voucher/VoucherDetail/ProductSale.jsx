@@ -8,15 +8,16 @@ const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad with 0
     const day = String(date.getDate()).padStart(2, '0');        // Get day and pad with 0
-    return `${month}/${day}`;
+    const year = String(date.getFullYear());
+    return `${month}/${day}/${year}`;
 };
 
-const ProductSale = ({ saleAmount, endDate, price, infiniteUses, useCount , bought, voucherDetailId}) => {
-    const formattedEndDate = formatDate(endDate); 
+const ProductSale = ({ saleAmount, endDate, price, infiniteUses, useCount, bought, voucherDetailId }) => {
+    const formattedEndDate = formatDate(endDate);
     return (
         <div className="product-sale">
-            <SaleHeader endDate={formattedEndDate} voucherDetailId={voucherDetailId}/>
-            <SaleContent saleAmount={saleAmount} price={price} infiniteUses={infiniteUses} useCount={useCount}  bought={bought} voucherDetailId={voucherDetailId} />
+            <SaleHeader endDate={formattedEndDate} voucherDetailId={voucherDetailId} />
+            <SaleContent saleAmount={saleAmount} price={price} infiniteUses={infiniteUses} useCount={useCount} bought={bought} voucherDetailId={voucherDetailId} />
             <style jsx>{`
                 .product-sale {
                     display: flex; /* Make it a flex container */

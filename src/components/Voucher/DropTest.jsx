@@ -28,14 +28,14 @@ const DropTest = ({ options, onChange }) => {
                 if (id) {
                     const data = await fetchMemberVouchers(JSON.parse(getCookie('memberInfo')).memberId, '', id.split('/')[1]);
                     setItems(data);
-                   // Chọn mục đầu tiên
+                    // Chọn mục đầu tiên
                 }
                 else {
                     const data = await fetchMemberVouchers(JSON.parse(getCookie('memberInfo')).memberId, '', '');
                     setItems(data);
                     // Chọn mục đầu tiên
                 }
-                items != '' ? setSelectedItem(items) : setSelectedItem(); 
+                items != '' ? setSelectedItem(items) : setSelectedItem();
             }
         };
         fetchData();
@@ -49,7 +49,7 @@ const DropTest = ({ options, onChange }) => {
             const data = await response.json();
             let a = [];
             for (let i of data) {
-                if (i.endDate > new Date().toISOString() || i.endDate === null) {
+                if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
                     a.push(i);
                 }
             }
@@ -105,7 +105,7 @@ const DropTest = ({ options, onChange }) => {
             setIsExpanded(false); // Đóng dropdown
         }
     };
-    
+
     return (
         <>
             <div className="dropdown">
