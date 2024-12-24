@@ -144,6 +144,11 @@ const Homepage = () => {
     };
 
     const generateNotiChange = async (tableName, message) => {
+        const notiChangeCookie = getCookie('notiChange');
+        if (notiChangeCookie) {
+            console.log('NotiChange already exists in cookie:', notiChangeCookie);
+            return;
+        }
         const notiChange = {
             tableName: tableName,
             message: message,
@@ -161,6 +166,8 @@ const Homepage = () => {
             if (!response.ok) {
                 throw new Error('Error generating notification change');
             }
+            // Add notiChange to cookie after successful response
+            setCookie('notiChange', JSON.stringify(notiChange), 1);
         } catch (error) {
             console.error('Error generating notification change:', error);
         }
