@@ -61,35 +61,30 @@ function YNWidgetVoucher({ title, errorTitle, onClose, voucherDetailId }) {
   // };
   const apiUrl = API_URLS.API + 'MemberVouchers/Add';
     const handleSubmit = async () => {
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    MemberId: member.memberId, // ID thành viên
-                    VoucherDetailId: voucherDetail.voucherDetailId, // ID chi tiết voucher
-                }) // Chuyển đổi đối tượng thành JSON
-            });
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error adding member voucher:', error);
+        console.log(member.memberId + " " + voucherDetail.voucherDetailId);
+    await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        MemberId: member.memberId, // ID thành viên
+        VoucherDetailId: voucherDetail.voucherDetailId, // ID chi tiết voucher
+    }) // Chuyển đổi đối tượng thành JSON
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error in network response');
         }
-        // .then(response => {
-        //   if (!response.ok) {
-        //     throw new Error('Error in network response');
-        //   }
-        //   return response.json(); // Trả về JSON nếu phản hồi thành công
-        // })
-        // .then(result => {
-        //   console.log('Success:', result);
-        // })
-        // .catch(error => {
-        //   console.error('Error:', error);
-        // });
-    };
+        return response.json(); // Trả về JSON nếu phản hồi thành công
+      })
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   const handleCancel = () => {
     onClose(); // Close the pop-up
