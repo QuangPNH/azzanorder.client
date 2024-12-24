@@ -62,7 +62,7 @@ function YNWidgetVoucher({ title, errorTitle, onClose, voucherDetailId }) {
   const apiUrl = API_URLS.API + 'MemberVouchers/Add';
   const handleSubmit = async () => {
     console.log(member.memberId);
-    fetch(apiUrl, {
+    await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
