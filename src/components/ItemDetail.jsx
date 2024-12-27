@@ -107,6 +107,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
 
             {!desc.includes('food') && (
                 <>
+
                     <div>
                         <CustomItem title="Sugar amount:" />
                         <AmountBar selectedValue={selectedSugar} onStepClick={setSelectedSugar} />
@@ -116,22 +117,46 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
                         <CustomItem title="Ice amount:" />
                         <AmountBar selectedValue={selectedIce} onStepClick={setSelectedIce} />
                     </div>
+
+
+                    <div>
+                        <CustomItem title="Toppings:" />
+                        {toppings && toppings.map((topping) => {
+                            // Only show topping if both conditions match
+                            if (!topping.description.includes('food')) {
+                                return (
+                                    <ToppingAdd
+                                        key={topping.menuItemId}
+                                        toppingName={topping.itemName}
+                                        toppingNameEnglish={topping.description}
+                                        toppingPrice={topping.price}
+                                        onToppingChange={handleToppingChange}
+                                    />
+                                );
+                            }
+                        })}
+                    </div>
                 </>
             )}
-
-            <div>
-                <CustomItem title="Toppings:" />
-                {toppings && toppings.map((topping) => (
-                    <ToppingAdd
-                        key={topping.menuItemId}
-                        toppingName={topping.itemName}
-                        toppingNameEnglish={topping.description}
-                        toppingPrice={topping.price}
-                        onToppingChange={handleToppingChange}
-                    />
-                ))}
-            </div>
-
+            {desc.includes('food') && (
+                <div>
+                    <CustomItem title="Toppings:" />
+                    {toppings && toppings.map((topping) => {
+                        // Only show topping if both conditions match
+                        if (desc.includes('food') && topping.description.includes('food')) {
+                            return (
+                                <ToppingAdd
+                                    key={topping.menuItemId}
+                                    toppingName={topping.itemName}
+                                    toppingNameEnglish={topping.description}
+                                    toppingPrice={topping.price}
+                                    onToppingChange={handleToppingChange}
+                                />
+                            );
+                        }
+                    })}
+                </div>
+            )}
             <AddToCartButton onClick={handleAddToCart} />
             <Description content={modifiedDesc} />
 
