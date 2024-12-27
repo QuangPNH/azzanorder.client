@@ -2,6 +2,7 @@
 import AmountIcon from './AmountIcon';
 
 const progressSteps = [
+    { value: 'none', label: 'none' },
     { value: 'less', label: 'less' },
     { value: 'normal', label: 'normal' },
     { value: 'more', label: 'more' }
