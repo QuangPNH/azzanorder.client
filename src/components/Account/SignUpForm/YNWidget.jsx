@@ -5,7 +5,8 @@ function YNWidget({ title, onClose, func }) {
 
     const handleSubmit = async () => {
         try {
-            setCookie('voucher', '' , -1);
+            setCookie('voucher', '', -1);
+            setCookie('cartData', '', -1);
             onClose();
             if (func) {
                 await func();
@@ -26,7 +27,7 @@ function YNWidget({ title, onClose, func }) {
                     <h2 className="register-title">{title}</h2>
                     <div>
                         <button className="submit-button" type="submit">Yes</button>
-                        <button className="submit-button" type="reset"onClick={handleCancel}>Cancel </button>
+                        <button className="submit-button" type="reset" onClick={handleCancel}>Cancel </button>
                     </div>
                 </form>
             </section>

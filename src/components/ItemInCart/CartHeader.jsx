@@ -75,37 +75,38 @@ const CartHeader = ({ headerText }) => {
         }
     }, [tableqr]);
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
+    //const toggleDropdown = () => {
+    //    setIsDropdownOpen(!isDropdownOpen);
+    //};
 
-    const handleOptionSelection = (qr, tableId) => {
-        const [, id] = tableqr.split('/'); // Extract the id part from the cookie
-        setSelectedOption(qr); // Set selectedOption to qr
-        setCookie("tableqr", `${qr}/${id}/${tableId}`, 7); // Update the tableqr cookie with the new qr, existing id, and new tableId
-        setIsDropdownOpen(false);
-    };
+    //const handleOptionSelection = (qr, tableId) => {
+    //    const [, id] = tableqr.split('/'); // Extract the id part from the cookie
+    //    setSelectedOption(qr); // Set selectedOption to qr
+    //    setCookie("tableqr", `${qr}/${id}/${tableId}`, 7); // Update the tableqr cookie with the new qr, existing id, and new tableId
+    //    setIsDropdownOpen(false);
+    //};
 
     return (
         <div className="cartHeader">
             <img src="https://file.garden/Z0M_TIZxgjUCRpfy/LogoAOS/shoppingCart1.svg" style={{ width: '30px', height: '26px' }} />
             <p>Cart at table</p>
             <div className="dropdown1">
-                <div className="dropdown-toggle1" onClick={toggleDropdown}>
+                {/*<div className="dropdown-toggle1" onClick={toggleDropdown}>*/}
+                <div className="dropdown-toggle1">
                     <p className="selected-option1">{selectedOption}</p>
-                    <img
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/170034c8ccaf3722be922eaa999b1f02f19585d5b327ad61ff50748511ec2953?placeholderIfAbsent=true&apiKey=c0efc441fe73418b8b7246db17f848b8"
-                        alt=""
-                        className="dropdown-icon"
-                    />
+                    {/*<img*/}
+                    {/*    src="https://cdn.builder.io/api/v1/image/assets/TEMP/170034c8ccaf3722be922eaa999b1f02f19585d5b327ad61ff50748511ec2953?placeholderIfAbsent=true&apiKey=c0efc441fe73418b8b7246db17f848b8"*/}
+                    {/*    alt=""*/}
+                    {/*    className="dropdown-icon"*/}
+                    {/*/>*/}
                 </div>
                 {isDropdownOpen && (
                     <div className="dropdown-menu1">
-                        {dropdownOptions.map((option, index) => (
-                            <button key={index} onClick={() => handleOptionSelection(option.qr, option.tableId)}>
+                        {/*{dropdownOptions.map((option, index) => (*/}
+                        {/*    <button key={index} onClick={() => handleOptionSelection(option.qr, option.tableId)}>*/}
                                 {option.qr}
-                            </button>
-                        ))}
+                        {/*    </button>*/}
+                        {/*))}*/}
                     </div>
                 )}
             </div>
