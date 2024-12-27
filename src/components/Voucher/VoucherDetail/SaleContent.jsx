@@ -5,6 +5,7 @@ import API_URLS from '../../../config/apiUrls';
 import { useNavigate } from 'react-router-dom';
 
 const SaleContent = ({ saleAmount, price, infiniteUses, useCount, bought, voucherDetailId }) => {
+    const memberInfo = getCookie('memberInfo');
     const [vouchers, setVouchers] = useState([]);
     const [showLogout, setLogout] = useState(false);
     const [quantityV, setQuantityV] = useState(false);
@@ -66,14 +67,17 @@ const SaleContent = ({ saleAmount, price, infiniteUses, useCount, bought, vouche
 
                 {bought ? (<div> </div>) : (<div className="sale-price">
                     <p>Price: <span className="price-value">{price} points</span></p>  {/* Dynamic price */}
-                    <button className="qr-button" onClick={clickFunction}>
+                    {memberInfo && 
+                        <button className="qr-button" onClick={clickFunction}>
 
-                        <img
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/66181310e2851f8fae57b02cad765f22e6988ffb6004f773591a0d8561aba4e0?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533"
-                            alt="QR code"
-                            className="qr-code"
-                        />
-                    </button>
+                            <img
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/66181310e2851f8fae57b02cad765f22e6988ffb6004f773591a0d8561aba4e0?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533"
+                                alt="QR code"
+                                className="qr-code"
+                            />
+                        </button>
+                        }
+                    
                 </div>)}
 
                 <style jsx>{`
