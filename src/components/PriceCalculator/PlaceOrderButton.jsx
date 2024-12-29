@@ -134,12 +134,11 @@ const sendNotification = (title, body, icon) => {
 };
 const postStaffNotiChannel = async (tableQR, managerId, message) => {
     const staffNotiChannel = {
-        id: Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000,
         tableQR: tableQR,
         managerId: managerId,
         message: message,
         dateAdded: new Date().toISOString(),
-        isSent: true
+        isSent: false
     };
     try {
         const response = await fetch(API_URLS.API + 'StaffNotiChannels', {
@@ -152,10 +151,12 @@ const postStaffNotiChannel = async (tableQR, managerId, message) => {
         if (!response.ok) {
             throw new Error('Error posting staff notification channel');
         }
+        console.log('Staff notification channel posted successfully');
     } catch (error) {
         console.error('Error posting staff notification channel:', error);
     }
 };
+
 const sendPostRequest = async (inputText, action) => {
     const url = API_URLS.NOTHUB + 'api/notifications/requests';
     const body = {
