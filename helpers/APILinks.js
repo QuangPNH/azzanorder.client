@@ -1,5 +1,5 @@
 //export const LOCALHOST_API = "http://localhost:7183"
-export const LOCALHOST_API = "https://oas-api-main-cxhua5dqh7dueqhz.southeastasia-01.azurewebsites.net"
+export const LOCALHOST_API = "https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net"
 //export const LOCALHOST_API = "https://swp391-1817-net-g2.techtheworld.id.vn"
 
 
@@ -85,7 +85,7 @@ export const LIST_FEEDBACK = `${LOCALHOST_API}/api/MessengerBox`
 
 
 // LINK SHOP CLIENT
-export const LIST_PRODUCT = `https://https://polite-island-0f3a2cb00.4.azurestaticapps.net/listProduct/`;
+export const LIST_PRODUCT = `https://white-grass-05f73fc00.4.azurestaticapps.net/listProduct/`;
 export const API_ORDER = `${LOCALHOST_API}/api/Order`;
 
 // LINK BLOG
