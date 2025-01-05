@@ -11,7 +11,7 @@ const Logo = () => {
             // Fetch the logo URL based on the tableqr value
             const fetchLogoSrc = async (manaId) => {
                 try {
-                    const url = manaId ? API_URLS.API + `Promotions/GetByDescription/logo?id=${manaId}` : API_URLS.API + 'Promotions/GetByDescription/logo';
+                    const url = manaId ? API_URLS.API + `Promotions/GetByDescription/logo/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/logo';
                     const response = await fetch(url);
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

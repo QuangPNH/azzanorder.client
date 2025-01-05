@@ -14,7 +14,7 @@ const Footer = () => {
     const tableqr = getCookie("tableqr");
     const fetchData = async (endpoint, manaId, setData) => {
         try {
-            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}?id=${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
+            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}/${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();

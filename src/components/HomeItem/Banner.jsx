@@ -14,7 +14,7 @@ const Banner = () => {
 
     const fetchImages = async (manaId) => {
         try {
-            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/banner?id=${manaId}` : API_URLS.API + 'Promotions/GetByDescription/banner';
+            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/banner/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/banner';
             const response = await fetch(url);
             const data = await response.json();
             setPromotions(Array.isArray(data) ? data : []);
