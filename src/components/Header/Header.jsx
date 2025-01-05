@@ -21,7 +21,7 @@ const Header = () => {
             // Fetch the background color based on the tableqr value
             const fetchBackgroundColor = async (manaId) => {
                 try {
-                    const url = manaId ? API_URLS.API + `Promotions/GetByDescription/color?manaId=${manaId}` : API_URLS.API + `Promotions/GetByDescription/color`;
+                    const url = manaId ? API_URLS.API + `Promotions/GetByDescription/color?id=${manaId}` : API_URLS.API + `Promotions/GetByDescription/color`;
                     const response = await fetch(url);
                     if (response.ok) {
                         const data = await response.json();

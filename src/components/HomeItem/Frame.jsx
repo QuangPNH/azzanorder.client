@@ -9,7 +9,7 @@ const Frame = () => {
     useEffect(() => {
         const fetchPromotions = async (manaId) => {
             try {
-                const url = manaId ? API_URLS.API + `Promotions/GetByDescription/carousel?manaId=${manaId}` : API_URLS.API + 'Promotions/GetByDescription/carousel';
+                const url = manaId ? API_URLS.API + `Promotions/GetByDescription/carousel?id=${manaId}` : API_URLS.API + 'Promotions/GetByDescription/carousel';
                 const response = await fetch(url);
                 const data = await response.json();
                 setPromotions(data);
