@@ -30,11 +30,7 @@ const Homepage = () => {
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
 
         const fetchData = async () => {
-            await fetchMenuItems(id ? id.split('/')[1] : null);
-            if (memberId) {
-                await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
-                setShowRecentlyOrdered(true);
-            }
+            
             if (id) {
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
@@ -46,7 +42,12 @@ const Homepage = () => {
                 setCookie('voucher', '', -1);
                 setCookie('cartData', '', -1);
             }
-            
+            const empId = getCookie(`tableqr`);
+            await fetchMenuItems(empId ? empId.split('/')[1] : null);
+            if (memberId) {
+                await fetchRecentMenuItems(memberId, empId ? empId.split('/')[1] : null);
+                setShowRecentlyOrdered(true);
+            }
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
@@ -54,8 +55,13 @@ const Homepage = () => {
             const processOrder = async () => {
                 const { total, totalDiscount } = await calculateTotal();
                 await postOrder(total);
+                alert("Your order has been queued");
             };
             processOrder();
+        }
+
+        if (status === "cancel") {
+                alert("Your order has been queued");
         }
 
         if (!hasRegisteredServiceWorker.current) {
@@ -229,7 +235,7 @@ const Homepage = () => {
 
     const fetchMenuItems = async (manaId) => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/top4?manaId=${manaId}` : API_URLS.API + 'MenuItem/top4';
+            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
             const data = await response.json();
             setMenuItems(data);
@@ -249,9 +255,9 @@ const Homepage = () => {
         }
     };
 
-    const fetchRecentMenuItems = async (customerId, manaId) => {
+    const fetchRecentMenuItems = async (customerId) => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?manaId=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
+            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
             const response = await fetch(url);
             const data = await response.json();
             setRecentMenuItems(data);
