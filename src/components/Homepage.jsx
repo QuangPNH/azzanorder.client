@@ -235,7 +235,7 @@ const Homepage = () => {
 
     const fetchMenuItems = async (manaId) => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
+            const url = manaId ? API_URLS.API + `MenuItem/top4?manaId=${manaId}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
             const data = await response.json();
             setMenuItems(data);
@@ -255,9 +255,9 @@ const Homepage = () => {
         }
     };
 
-    const fetchRecentMenuItems = async (customerId) => {
+    const fetchRecentMenuItems = async (customerId, manaId) => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
+            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?manaId=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
             const response = await fetch(url);
             const data = await response.json();
             setRecentMenuItems(data);
