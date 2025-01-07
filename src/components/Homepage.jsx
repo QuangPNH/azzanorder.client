@@ -42,7 +42,7 @@ const Homepage = () => {
                 setCookie('voucher', '', -1);
                 setCookie('cartData', '', -1);
             }
-            const empId = getCookie(`tableqr`);
+            const empId = getCookie('tableqr');
             await fetchMenuItems(empId ? empId.split('/')[1] : null);
             if (memberId) {
                 await fetchRecentMenuItems(memberId, empId ? empId.split('/')[1] : null);
