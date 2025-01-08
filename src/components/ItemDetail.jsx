@@ -93,7 +93,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
         setCookie("cartData", JSON.stringify(parsedData), 0.02);
     };
     
-    const modifiedDesc = desc.includes('/') ? desc.split('/').slice(1).join('/') : desc;
+    const modifiedDesc = desc ? desc.split('/').slice(1).join('/') : desc;
 
     return (
         <>
@@ -105,7 +105,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
                 onQuantityChange={setCurrentQuantity}
             />
 
-            {!desc.includes('food') && (
+            {desc && !desc.includes('food') && (
                 <>
 
                     <div>
@@ -138,7 +138,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
                     </div>
                 </>
             )}
-            {desc.includes('food') && (
+            {desc && desc.includes('food') && (
                 <div>
                     <CustomItem title="Toppings:" />
                     {toppings && toppings.map((topping) => {
