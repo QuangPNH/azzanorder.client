@@ -14,25 +14,43 @@ const Header = () => {
     };
 
     const [backgroundColor, setBackgroundColor] = useState('#f6b5b5'); // Default background color
-
-    useEffect(() => {
-        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
-        if (tableqr) {
-            // Fetch the background color based on the tableqr value
-            const fetchBackgroundColor = async (manaId) => {
-                try {
-                    const url = manaId ? API_URLS.API + `Promotions/GetByDescription/color/${manaId}` : API_URLS.API + `Promotions/GetByDescription/color`;
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        const data = await response.json();
-                        setBackgroundColor(data.description.split('/')[1]);
-                    }
-                } catch (error) {
-                    console.error("Failed to fetch background color:", error);
+    const tableqr = getCookie('tableqr');
+    const fetchBackgroundColor = async (manaId) => {
+            try {
+                const url = manaId ? API_URLS.API + `Promotions/GetByDescription/color/${manaId}` : API_URLS.API + `Promotions/GetByDescription/color`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    setBackgroundColor(data.description.split('/')[1]);
                 }
-            };
-            fetchBackgroundColor(tableqr);
+            } catch (error) {
+                console.error("Failed to fetch background color:", error);
+            }
+        };
+    useEffect(() => {
+        
+        //const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
+        //if (tableqr) {
+        //    // Fetch the background color based on the tableqr value
+        //    const fetchBackgroundColor = async (manaId) => {
+        //        try {
+        //            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/color/${manaId}` : API_URLS.API + `Promotions/GetByDescription/color`;
+        //            const response = await fetch(url);
+        //            if (response.ok) {
+        //                const data = await response.json();
+        //                setBackgroundColor(data.description.split('/')[1]);
+        //            }
+        //        } catch (error) {
+        //            console.error("Failed to fetch background color:", error);
+        //        }
+        //    };
+        //    fetchBackgroundColor(tableqr);
+        if (tableqr) {
+            const manaId = tableqr.split('/')[1];
+            fetchBackgroundColor(manaId);
         }
+            
+        
     }, []);
 
     return (
