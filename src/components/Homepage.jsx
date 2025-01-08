@@ -32,6 +32,7 @@ const Homepage = () => {
         const fetchData = async () => {
             
             if (id) {
+                console.log(table);
                 await fetchMenuItems(id ? id.split('/')[1] : table.split('/')[1]);
                 if (memberId) {
                     await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : table.split('/')[1]);
