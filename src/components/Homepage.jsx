@@ -30,14 +30,21 @@ const Homepage = () => {
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
         const table = getCookie('tableqr');
         const fetchData = async () => {
-            
-            if (id) {
+            if (table) {
                 console.log(table);
-                await fetchMenuItems(id ? id.split('/')[1] : table.split('/')[1]);
+                await fetchMenuItems(table.split('/')[1]);
                 if (memberId) {
-                    await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : table.split('/')[1]);
+                    await fetchRecentMenuItems(memberId, table.split('/')[1]);
                     setShowRecentlyOrdered(true);
                 }
+            }
+            if (id) {
+                await fetchMenuItems(id.split('/')[1]);
+                if (memberId) {
+                    await fetchRecentMenuItems(memberId, id.split('/')[1]);
+                    setShowRecentlyOrdered(true);
+                }
+                
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
