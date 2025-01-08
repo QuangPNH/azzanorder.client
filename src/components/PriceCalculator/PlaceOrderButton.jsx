@@ -188,6 +188,7 @@ const PlaceOrderButton = ({ amount, isTake, isCash }) => {
         try {
             if (isCash) {
                 await postOrder(amount, isCash);
+                window.location.href = "/";
             } else {
 
                 const cartDataString = getCookie("cartData");
