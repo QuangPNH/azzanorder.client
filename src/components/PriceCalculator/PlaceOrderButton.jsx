@@ -188,6 +188,7 @@ const PlaceOrderButton = ({ amount, isTake, isCash }) => {
         try {
             if (isCash) {
                 await postOrder(amount, isCash);
+                alert("Your order has queued, please find staff to confirm it.")
                 window.location.href = "/";
             } else {
 
