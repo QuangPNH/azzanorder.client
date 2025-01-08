@@ -7,20 +7,18 @@ const Frame = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        const fetchPromotions = async (manaId) => {
-            try {
-                const url = manaId ? API_URLS.API + `Promotions/GetByDescription/carousel/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/carousel';
-                const response = await fetch(url);
-                const data = await response.json();
-                setPromotions(data);
-            } catch (error) {
-                console.error('Error fetching promotions:', error);
-            }
-        };
-
         fetchPromotions(getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null);
     }, []);
-
+    const fetchPromotions = async (manaId) => {
+        try {
+            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/carousel/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/carousel';
+            const response = await fetch(url);
+            const data = await response.json();
+            setPromotions(data);
+        } catch (error) {
+            console.error('Error fetching promotions:', error);
+        }
+    };
     const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % promotions.length);
     };
