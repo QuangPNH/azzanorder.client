@@ -28,11 +28,15 @@ const Homepage = () => {
     useEffect(() => {
         const memberInfo = getCookie('memberInfo');
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
-
+        const table = getCookie('tableqr');
         const fetchData = async () => {
             
             if (id) {
-                
+                await fetchMenuItems(id ? id.split('/')[1] : table.split('/')[1]);
+                if (memberId) {
+                    await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : table.split('/')[1]);
+                    setShowRecentlyOrdered(true);
+                }
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
@@ -42,12 +46,7 @@ const Homepage = () => {
             if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
                 setCookie('voucher', '', -1);
                 setCookie('cartData', '', -1);
-            }
-            await fetchMenuItems();
-            if (memberId) {
-                await fetchRecentMenuItems(memberId);
-                setShowRecentlyOrdered(true);
-            }
+            }           
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
@@ -233,10 +232,9 @@ const Homepage = () => {
         console.log('Window loaded');
     });
 
-    const fetchMenuItems = async () => {
+    const fetchMenuItems = async (manaId) => {
         try {
-            const manaId = getCookie('tableqr');
-            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId.split('/')[1]}` : API_URLS.API + 'MenuItem/top4';
+            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
             const data = await response.json();
             setMenuItems(data);
@@ -256,10 +254,9 @@ const Homepage = () => {
         }
     };
 
-    const fetchRecentMenuItems = async (customerId) => {
+    const fetchRecentMenuItems = async (customerId, manaId) => {
         try {
-            const manaId = getCookie('tableqr');
-            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId.split('/')[1]}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
+            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
             const response = await fetch(url);
             const data = await response.json();
             setRecentMenuItems(data);
