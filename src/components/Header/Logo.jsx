@@ -27,8 +27,7 @@ const Logo = () => {
     }, []);
 
     const handleLogoClick = () => {
-        const tableqr = getCookie('tableqr');
-        window.location.href = `/?tableqr=${tableqr}`;
+        window.location.href = "/";
     };
 
     return (

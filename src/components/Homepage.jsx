@@ -32,11 +32,7 @@ const Homepage = () => {
         const fetchData = async () => {
             
             if (id) {
-                await fetchMenuItems(id ? id.split('/')[1] : null);
-                if (memberId) {
-                    await fetchRecentMenuItems(memberId, id ? id.split('/')[1] : null);
-                    setShowRecentlyOrdered(true);
-                }
+                
                 setCookie('tableqr', '', -1);
                 setCookie('tableqr', id, 1);
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
@@ -47,7 +43,11 @@ const Homepage = () => {
                 setCookie('voucher', '', -1);
                 setCookie('cartData', '', -1);
             }
-            
+            await fetchMenuItems();
+            if (memberId) {
+                await fetchRecentMenuItems(memberId);
+                setShowRecentlyOrdered(true);
+            }
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
@@ -233,9 +233,10 @@ const Homepage = () => {
         console.log('Window loaded');
     });
 
-    const fetchMenuItems = async (manaId) => {
+    const fetchMenuItems = async () => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
+            const manaId = getCookie('tableqr');
+            const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId.split('/')[1]}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
             const data = await response.json();
             setMenuItems(data);
@@ -255,9 +256,10 @@ const Homepage = () => {
         }
     };
 
-    const fetchRecentMenuItems = async (customerId, manaId) => {
+    const fetchRecentMenuItems = async (customerId) => {
         try {
-            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
+            const manaId = getCookie('tableqr');
+            const url = manaId ? API_URLS.API + `MenuItem/RecentMenuItems/${customerId}?id=${manaId.split('/')[1]}` : API_URLS.API + `MenuItem/RecentMenuItems/${customerId}`;
             const response = await fetch(url);
             const data = await response.json();
             setRecentMenuItems(data);
