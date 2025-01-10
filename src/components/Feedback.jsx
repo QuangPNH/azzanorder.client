@@ -20,7 +20,6 @@ const FeedbackScreen = () => {
             window.location.href = '';
         }
     }, []);
-    const employeeId = getCookie('tableqr').split('/')[1];
     const fetchContentFromAPI = async (id) => {
         try {
             const response = await fetch(API_URLS.API + `Feedback/ByMemberId/${id}`);
@@ -45,9 +44,9 @@ const FeedbackScreen = () => {
 
             const feedbackData = {
                 ...feedback,
-                memberId: feedback?.memberId || JSON.parse(getCookie('memberInfo')).memberId
+                memberId: feedback?.memberId || JSON.parse(getCookie('memberInfo')).memberId,
+                employeeId: feedback?.employeeId || JSON.parse(getCookie('tableqr').split('/')[1])
             };
-            feedbackData.content = `${employeeId}/` + feedbackData.content;
             const response = await fetch(url, {
                 method: method,
                 headers: {
