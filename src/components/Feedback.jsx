@@ -25,9 +25,6 @@ const FeedbackScreen = () => {
             const response = await fetch(API_URLS.API + `Feedback/ByMemberId/${id}`);
             if (response.ok) {
                 const data = await response.json();
-                if(data.content.split('/')[1] != null){
-                    data.content = data.content.split('/')[1];
-                }
                 setContent(data);
             }
         } catch (error) {
@@ -55,6 +52,7 @@ const FeedbackScreen = () => {
                 body: JSON.stringify(feedbackData)
             });
             if (response.ok) {
+                console.loq(feedbackData);
                 console.log('Member info updated successfully');
             } else {
                 console.error('Failed to update member info');
