@@ -16,8 +16,12 @@ const Footer = () => {
         try {
             const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}/${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
             const response = await fetch(url);
+            if (response.ok) {
                 const data = await response.json();
                 setData(data);
+            } else {
+                setData(' ');
+            }
         } catch (error) {
             console.error(`Failed to fetch ${endpoint}:`, error);
         }
