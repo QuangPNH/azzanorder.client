@@ -54,7 +54,13 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
             }
         });
     };
-
+    
+    const arraysEqual = (arr1, arr2) => {
+        if (arr1.length !== arr2.length) return false;
+        const sortedArr1 = arr1.slice().sort((a, b) => a.name.localeCompare(b.name));
+        const sortedArr2 = arr2.slice().sort((a, b) => a.name.localeCompare(b.name));
+        return sortedArr1.every((item, index) => item.name === sortedArr2[index].name);
+    };
     const handleAddToCart = () => {
         const storedData = getCookie('cartData');
         let parsedData = [];
@@ -72,7 +78,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
             item.name === title &&
             item.options.selectedSugar === selectedSugar &&
             item.options.selectedIce === selectedIce &&
-            JSON.stringify(item.options.toppings) === JSON.stringify(selectedToppings)
+            arraysEqual(item.options.selectedToppings, selectedToppings)
         );   
             if (existingItemIndex !== -1) {
                 // Item exists, increase quantity
@@ -121,7 +127,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
 
                     <div>
                         <CustomItem title="Toppings:" />
-                        {toppings && toppings.map((topping) => {
+                        {toppings && toppings.length > 0 && toppings.map((topping) => {
                             // Only show topping if both conditions match
                             if (!topping.description.includes('food')) {
                                 return (
@@ -141,7 +147,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
             {desc && desc.includes('food') && (
                 <div>
                     <CustomItem title="Toppings:" />
-                    {toppings && toppings.map((topping) => {
+                    {toppings && toppings.length > 0 && toppings.map((topping) => {
                         // Only show topping if both conditions match
                         if (desc.includes('food') && topping.description.includes('food')) {
                             return (
