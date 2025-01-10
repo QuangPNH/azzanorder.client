@@ -52,7 +52,7 @@ const FeedbackScreen = () => {
                 body: JSON.stringify(feedbackData)
             });
             if (response.ok) {
-                console.loq(feedbackData);
+                console.log(feedbackData);
                 console.log('Member info updated successfully');
             } else {
                 console.error('Failed to update member info');
