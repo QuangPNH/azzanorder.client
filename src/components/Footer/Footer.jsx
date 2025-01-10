@@ -12,29 +12,30 @@ const Footer = () => {
     const [contact, setContact] = useState('');
 
     const tableqr = getCookie("tableqr");
-    const fetchData = async (endpoint, manaId, setData) => {
+    const fetchData = async (endpoint, manaId, setData, defaultValue) => {
         try {
             const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}/${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                setData(data);
+                setData(data.description || data.image || defaultValue);
             } else {
-                setData(' ');
+                setData(defaultValue);
             }
         } catch (error) {
             console.error(`Failed to fetch ${endpoint}:`, error);
+            setData(defaultValue);
         }
     };
 
     useEffect(() => {
         if (tableqr) {
             const manaId = tableqr.split('/')[1];
-            fetchData('color', manaId, (data) => setBackgroundColor(data.description.split('/')[1]));
-            fetchData('logo', manaId, (data) => setLogoSrc(data.image));
-            fetchData('hotLine', manaId, (data) => setHotline(data.description.split('/')[1]));
-            fetchData('mail', manaId, (data) => setMail(data.description.split('/')[1]));
-            fetchData('contact', manaId, (data) => setContact(data.description.split('/')[1]));
+            fetchData('color', manaId, setBackgroundColor, '#f6b5b5');
+            fetchData('logo', manaId, setLogoSrc, '');
+            fetchData('hotLine', manaId, setHotline, '');
+            fetchData('mail', manaId, setMail, '');
+            fetchData('contact', manaId, setContact, '');
         }
     }, [tableqr]);
 
@@ -54,7 +55,7 @@ const Footer = () => {
     ].filter(item => item && item.text);
 
     return (
-        <footer className="footer">
+        <footer className="footer" style={{ backgroundColor }}>
             <div className="footer-content">
                 {contactItems && <ContactInfo items={contactItems} />}
                 {contact && (

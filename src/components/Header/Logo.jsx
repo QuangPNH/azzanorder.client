@@ -14,11 +14,13 @@ const Logo = () => {
                 try {
                     const url = manaId ? API_URLS.API + `Promotions/GetByDescription/logo/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/logo';
                     const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
+                    if (response.ok) {
+                        const data = await response.json();
+                        setLogoSrc(data.image);
                     }
-                    const data = await response.json();
-                    setLogoSrc(data.image);
+                    else{
+                        setLogoSrc('');
+                    }
                 } catch (error) {
                     console.error("Failed to fetch logo URL:", error);
                 }

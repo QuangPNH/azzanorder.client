@@ -3,6 +3,7 @@ import DotIndicator from './DotIndicator';
 import ImageWrapper from './ImageWrapper';
 import { getCookie } from '../Account/SignUpForm/Validate';
 import API_URLS from '../../config/apiUrls';
+import ShowMoreLink from '../ShowMoreLink/ShowMoreLink';
 
 const Banner = () => {
     const [promotions, setPromotions] = useState([]);
@@ -10,40 +11,58 @@ const Banner = () => {
     const tableqr = getCookie("tableqr");
     
     useEffect(() => {
-        if (tableqr) {
-            fetchImages(tableqr.split('/')[1]);
-        }
-    }, []);
+        let isMounted = true;
 
-    const fetchImages = async (manaId) => {
-        try {
-            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/banner/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/banner';
-            const response = await fetch(url);
-            const data = await response.json();
-            setPromotions(Array.isArray(data) ? data : []);
-        } catch (error) {
-            console.error('Error fetching images:', error);
+        const fetchImages = async (manaId) => {
+            try {
+                const url = manaId ? API_URLS.API + `Promotions/GetByDescription/banner/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/banner';
+                const response = await fetch(url);
+                const data = await response.json();
+                if (isMounted) {
+                    setPromotions(Array.isArray(data) ? data : []);
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+                if (isMounted) {
+                    setPromotions([]); // Reset to default on error
+                }
+            }
+        };
+
+        if (tableqr) {
+            const manaId = tableqr.split('/')[1];
+            setPromotions([]); // Reset promotions before fetching new data
+            fetchImages(manaId);
+        } else {
+            setPromotions([]); // Reset promotions if no tableqr
         }
-    };
+
+        return () => {
+            isMounted = false; // Cleanup function to prevent setting state on unmounted component
+        };
+    }, [tableqr]);
 
     const dots = promotions.map((_, index) => ({ active: index === activeIndex }));
 
     return (
         <>
-            <section className="banner">
-                <div className="image-gallery">
-                    {promotions?.map((image, index) => (
-                        <ImageWrapper key={index} src={image.image} alt={image.title} style={{ display: index === activeIndex ? 'block' : 'none' }} />
-                    ))}
+            {promotions.length > 0 && (
+                <div>
+                <section className="banner">
+                    <div className="image-gallery">
+                        {promotions.map((image, index) => (
+                            <ImageWrapper key={index} src={image.image} alt={image.title} style={{ display: index === activeIndex ? 'block' : 'none' }} />
+                        ))}
+                    </div>
+
+                    <nav className="banner-navigation">
+                        {dots.map((dot, index) => (
+                            <DotIndicator key={index} active={dot.active} onClick={() => setActiveIndex(index)} />
+                        ))}
+                    </nav>
+                </section>
                 </div>
-
-                <nav className="banner-navigation">
-                    {dots.map((dot, index) => (
-                        <DotIndicator key={index} active={dot.active} onClick={() => setActiveIndex(index)} />
-                    ))}
-                </nav>
-            </section>
-
+            )}
             <style jsx>{`
                 .banner {
                     width: 100vw; /* Full width of the viewport */

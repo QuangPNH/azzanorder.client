@@ -278,7 +278,6 @@ const Homepage = () => {
             <Header />
             <div className="page-container">
                 <Navbar />
-                <ShowMoreLink title="LIMITED COMBO" />
                 <Frame />
                 <div>
                     {showRecentlyOrdered && recentMenuItems && Array.isArray(recentMenuItems) && (
@@ -299,21 +298,25 @@ const Homepage = () => {
                             </div>
                         </div>
                     )}
-
-                    <ShowMoreLink title="HOT ITEMS" />
-                    <div className='product-grid'>
-                        {menuItems?.map((menuItem) => (
-                            <ProductCard
-                                key={menuItem.menuItemId}
-                                id={menuItem.menuItemId}
-                                title={menuItem.itemName}
-                                price={menuItem.price}
-                                imageSrc={menuItem.imageBase64}
-                                cate={menuItem.category}
-                                desc={menuItem.description}
-                            />
-                        ))}
-                    </div>
+                    {menuItems && menuItems.length > 0 && (
+                        <div>
+                            <ShowMoreLink title="HOT ITEMS" />
+                            <div className='product-grid'>
+                                { menuItems.map((menuItem) => (
+                                    <ProductCard
+                                        key={menuItem.menuItemId}
+                                        id={menuItem.menuItemId}
+                                        title={menuItem.itemName}
+                                        price={menuItem.price}
+                                        imageSrc={menuItem.imageBase64}
+                                        cate={menuItem.category}
+                                        desc={menuItem.description}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    
                     <Banner />
                 </div>
                 <style jsx>{`  
