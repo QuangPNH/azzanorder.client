@@ -5,10 +5,14 @@ import API_URLS from '../../config/apiUrls';
 const Frame = () => {
     const [promotions, setPromotions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-
+    const tableqr = getCookie("tableqr");
+    
     useEffect(() => {
-        fetchPromotions(getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null);
-    }, []);
+        if (tableqr) {
+            fetchPromotions(getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null);
+        }
+    }, [tableqr]);
+    
     const fetchPromotions = async (manaId) => {
         try {
             const url = manaId ? API_URLS.API + `Promotions/GetByDescription/carousel/${manaId}` : API_URLS.API + 'Promotions/GetByDescription/carousel';

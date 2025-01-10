@@ -7,7 +7,7 @@ import { getCookie } from './Account/SignUpForm/Validate';
 
 const CartButton = () => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const tableqr = getCookie("tableqr");
     const handleCartButtonClick = () => {
         setIsOpen(true);
     };
@@ -17,8 +17,8 @@ const CartButton = () => {
     };
 
     useEffect(() => {
-        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
         if (tableqr) {
+            const manaId = tableqr.split('/')[1];
             // Fetch the Cart color based on the tableqr value
             const fetchCartColor = async (manaId) => {
                 try {
@@ -33,9 +33,9 @@ const CartButton = () => {
                     console.error("Failed to fetch Cart color:", error);
                 }
             };
-            fetchCartColor(tableqr);
+            fetchCartColor(manaId);
         }
-    }, []);
+    }, [tableqr]);
     return (
         <div style={{ position: 'fixed', bottom: '80px', right: '20px', zIndex: '9999' }}>
             <button onClick={handleCartButtonClick} style={{ borderRadius: '100%', padding: '12px', backgroundColor: 'var(--primary-color)', cursor: 'pointer' }}>

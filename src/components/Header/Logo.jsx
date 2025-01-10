@@ -4,10 +4,11 @@ import API_URLS from '../../config/apiUrls';
 
 const Logo = () => {
     const [logoSrc, setLogoSrc] = useState('');
-
+    const tableqr = getCookie('tableqr');
+    
     useEffect(() => {
-        const tableqr = getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null;
         if (tableqr) {
+            const manaId = tableqr.split('/')[1];
             // Fetch the logo URL based on the tableqr value
             const fetchLogoSrc = async (manaId) => {
                 try {
@@ -22,9 +23,9 @@ const Logo = () => {
                     console.error("Failed to fetch logo URL:", error);
                 }
             };
-            fetchLogoSrc(tableqr);
+            fetchLogoSrc(manaId);
         }
-    }, []);
+    }, [tableqr]);
 
     const handleLogoClick = () => {
         window.location.href = "/";
