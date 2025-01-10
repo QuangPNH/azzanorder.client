@@ -7,9 +7,12 @@ import API_URLS from '../../config/apiUrls';
 const Banner = () => {
     const [promotions, setPromotions] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-
+    const tableqr = getCookie("tableqr");
+    
     useEffect(() => {
-        fetchImages(getCookie('tableqr') ? getCookie('tableqr').split('/')[1] : null);
+        if (tableqr) {
+            fetchImages(tableqr.split('/')[1]);
+        }
     }, []);
 
     const fetchImages = async (manaId) => {
