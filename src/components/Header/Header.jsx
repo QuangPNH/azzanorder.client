@@ -23,6 +23,9 @@ const Header = () => {
                     const data = await response.json();
                     setBackgroundColor(data.description.split('/')[1]);
                 }
+                else{
+                    setBackgroundColor('#f6b5b5');
+                }
             } catch (error) {
                 console.error("Failed to fetch background color:", error);
             }
