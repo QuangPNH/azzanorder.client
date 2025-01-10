@@ -14,18 +14,20 @@ const FeedbackScreen = () => {
 
     useEffect(() => {
         const memberInfoCookie = getCookie('memberInfo');
+        const tableqr = getCookie('tableqr');
         if (memberInfoCookie != null) {
-            fetchContentFromAPI(JSON.parse(memberInfoCookie).memberId)
+            fetchContentFromAPI(JSON.parse(memberInfoCookie).memberId, tableqr.split('/')[1])
         } else {
             window.location.href = '';
         }
     }, []);
-    const fetchContentFromAPI = async (id) => {
+    const fetchContentFromAPI = async (id, employeeId) => {
         try {
-            const response = await fetch(API_URLS.API + `Feedback/ByMemberId/${id}`);
+            const response = await fetch(API_URLS.API + `Feedback/ByMemberIdAndEmployeeId/${id}/${employeeId}`);
             if (response.ok) {
                 const data = await response.json();
                 setContent(data);
+                console.log(data);
             }
         } catch (error) {
             throw new Error('Error fetching content from API:', error);
@@ -52,7 +54,6 @@ const FeedbackScreen = () => {
                 body: JSON.stringify(feedbackData)
             });
             if (response.ok) {
-                console.log(feedbackData);
                 console.log('Member info updated successfully');
             } else {
                 console.error('Failed to update member info');
