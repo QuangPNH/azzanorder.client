@@ -57,31 +57,29 @@ const VoucherScreen = () => {
         try {
             const holdId = manaId;
             const response = category == '' ? await fetch(API_URLS.API + `VoucherDetail/ListVoucherDetail?employeeId=${holdId}`) : await fetch(API_URLS.API + `VoucherDetail/categoryId?categoryId=${category}&employeeId=${holdId}`);
-            if (response.ok) {
-                const data = await response.json();
 
-                if (category == '') {
-                    let a = [];
-                    for (let i of data) {
-                        if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
-                            a.push(i);
-                        }
+            const data = await response.json();
+
+            if (category == '') {
+                let a = [];
+                for (let i of data) {
+                    if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
+                        a.push(i);
                     }
-                    setAllVouchers(a);
                 }
-                else {
-                    setAllVouchers(false);
-                    let a = [];
-                    for (let i of data) {
-                        if (i.voucherDetail.endDate > new Date().toISOString() && i.voucherDetail.startDate <= new Date().toISOString() || i.voucherDetail.endDate === null) {
-                            a.push(i);
-                        }
-                    }
-                    setVouchers(a);
-                }
-            } else {
-                setNoCategory(true);
+                setAllVouchers(a);
             }
+            else {
+                setAllVouchers(false);
+                let a = [];
+                for (let i of data) {
+                    if (i.voucherDetail.endDate > new Date().toISOString() && i.voucherDetail.startDate <= new Date().toISOString() || i.voucherDetail.endDate === null) {
+                        a.push(i);
+                    }
+                }
+                setVouchers(a);
+            }
+
         } catch (error) {
             console.error('Error fetching menu items:', error);
         }
@@ -102,8 +100,12 @@ const VoucherScreen = () => {
     const fetchCategories = async (manaId) => {
         try {
             const response = await fetch(API_URLS.API + `ItemCategory/GetAllItemCategoriesValid?id=${manaId}`);
-            const data = await response.json();
-            setCategories(data);
+            if (response.ok) {
+                const data = await response.json();
+                setCategories(data);
+            } else {
+                setNoCategory(true);
+            }
         } catch (error) {
             console.error('Error fetching categories:', error);
         }
@@ -125,7 +127,6 @@ const VoucherScreen = () => {
         <>
             {!noCategory && (
                 <>
-
                     <Header />
                     <VoucherList />
                     <div className="content-container">
@@ -207,10 +208,8 @@ const VoucherScreen = () => {
                 }
             `}</style>
                     <Footer />
-
                 </>
-            )
-            }
+            )}
         </>
     );
 };
