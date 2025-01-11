@@ -25,8 +25,7 @@ const FeedbackScreen = () => {
         try {
             
             const url = API_URLS.API + `Feedback/ByMemberIdAndEmployeeId/${id}/${employeeId}`;
-            console.log(url);
-            const response = await fetch(API_URLS.API + `Feedback/ByMemberIdAndEmployeeId/${id}/${employeeId}`);
+            const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
                 setContent(data);
@@ -40,10 +39,11 @@ const FeedbackScreen = () => {
     const handleSave = async () => {
         try {
             const method = feedback ? 'PUT' : 'POST';
+            console.log(method);
             const url = feedback
                 ? API_URLS.API + 'Feedback/Update'
                 : API_URLS.API + 'Feedback/Add';
-
+            console.log(url);
             const feedbackData = {
                 ...feedback,
                 memberId: feedback?.memberId || JSON.parse(getCookie('memberInfo')).memberId,
