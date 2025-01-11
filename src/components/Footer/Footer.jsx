@@ -12,33 +12,33 @@ const Footer = () => {
     const [contact, setContact] = useState('');
 
     const tableqr = getCookie("tableqr");
-    const fetchData = async (endpoint, manaId, setData, defaultValue) => {
-        try {
-            const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}/${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
-            const response = await fetch(url);
-            if (response.ok) {
-                const data = await response.json();
-                const value = data.description || data.image || defaultValue;
-                setData(value.includes('/') ? value.split('/')[1] : value);
-            } else {
-                setData(defaultValue);
-            }
-        } catch (error) {
-            console.error(`Failed to fetch ${endpoint}:`, error);
+    const fetchData = async (endpoint, manaId, setData, defaultValue, isImage = false) => {
+    try {
+        const url = manaId ? API_URLS.API + `Promotions/GetByDescription/${endpoint}/${manaId}` : API_URLS.API + `Promotions/GetByDescription/${endpoint}`;
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json();
+            const value = isImage ? data.image : data.description || defaultValue;
+            setData(value.includes('/') ? value.split('/')[1] : value);
+        } else {
             setData(defaultValue);
         }
-    };
+    } catch (error) {
+        console.error(`Failed to fetch ${endpoint}:`, error);
+        setData(defaultValue);
+    }
+};
 
-    useEffect(() => {
-        if (tableqr) {
-            const manaId = tableqr.split('/')[1];
-            fetchData('color', manaId, setBackgroundColor, '#f6b5b5');
-            fetchData('logo', manaId, setLogoSrc, '');
-            fetchData('hotLine', manaId, setHotline, '');
-            fetchData('mail', manaId, setMail, '');
-            fetchData('contact', manaId, setContact, '');
-        }
-    }, [tableqr]);
+useEffect(() => {
+    if (tableqr) {
+        const manaId = tableqr.split('/')[1];
+        fetchData('color', manaId, setBackgroundColor, '#f6b5b5');
+        fetchData('logo', manaId, setLogoSrc, '', true); // Fetch logo as image
+        fetchData('hotLine', manaId, setHotline, '');
+        fetchData('mail', manaId, setMail, '');
+        fetchData('contact', manaId, setContact, '');
+    }
+}, [tableqr]);
 
     const contactItems = [
         hotLine && {
