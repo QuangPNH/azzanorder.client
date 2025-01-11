@@ -23,6 +23,7 @@ const FeedbackScreen = () => {
     }, []);
     const fetchContentFromAPI = async (id, employeeId) => {
         try {
+            console.log(id,employeeId);
             const response = await fetch(API_URLS.API + `Feedback/ByMemberIdAndEmployeeId/${id}/${employeeId}`);
             if (response.ok) {
                 const data = await response.json();
