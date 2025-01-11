@@ -29,7 +29,6 @@ const FeedbackScreen = () => {
             if (response.ok) {
                 const data = await response.json();
                 setContent(data);
-                console.log(data);
             }
         } catch (error) {
             throw new Error('Error fetching content from API:', error);
@@ -38,18 +37,15 @@ const FeedbackScreen = () => {
 
     const handleSave = async () => {
         try {
-            const method = feedback ? 'PUT' : 'POST';
-            console.log(method);
-            const url = feedback
+            const method = feedback.feedbackId ? 'PUT' : 'POST';
+            const url = feedback.feedbackId
                 ? API_URLS.API + 'Feedback/Update'
                 : API_URLS.API + 'Feedback/Add';
-            console.log(url);
             const feedbackData = {
                 ...feedback,
                 memberId: feedback?.memberId || JSON.parse(getCookie('memberInfo')).memberId,
                 employeeId: feedback?.employeeId || JSON.parse(getCookie('tableqr').split('/')[1])
             };
-            console.log(feedbackData);
             const response = await fetch(url, {
                 method: method,
                 headers: {
@@ -58,8 +54,7 @@ const FeedbackScreen = () => {
                 body: JSON.stringify(feedbackData)
             });
             if (response.ok) {
-                console.log(feedbackData);
-                console.log('Member info updated successfully');
+                alert("Thank you for your feedback, have a nice day!")
             } else {
                 console.error('Failed to update member info');
             }
