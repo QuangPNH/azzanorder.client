@@ -18,7 +18,8 @@ const Footer = () => {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                setData(data.description || data.image || defaultValue);
+                const value = data.description || data.image || defaultValue;
+                setData(value.includes('/') ? value.split('/')[1] : value);
             } else {
                 setData(defaultValue);
             }
