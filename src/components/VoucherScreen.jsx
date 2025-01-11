@@ -123,75 +123,78 @@ const VoucherScreen = () => {
 
     return (
         <>
-            <Header />
-            <VoucherList />
-            <div className="content-container">
-                {point && (
-                    <div>
-                        <div className='product-grid'>
-                            <PointsDisplay
-                                key={point.id}
-                                points={point.point}
-                            />
-                        </div>
-                    </div>
-                )}
-                {memberVouchers && (
-                    <div className="product-sale-container">
-                        {memberVouchers.map((mv) => (
+            {!noCategory && (
+                <>
 
-                            <ProductSale
-                                key={mv.memberVoucherId}
-                                saleAmount={mv.discount}
-                                endDate={mv.endDate}
-                                bought={true}
-                                voucherDetailId={mv.voucherDetailId}
-                                infiniteUses={false}
-                            />
-                        ))}
+                    <Header />
+                    <VoucherList />
+                    <div className="content-container">
+                        {point && (
+                            <div>
+                                <div className='product-grid'>
+                                    <PointsDisplay
+                                        key={point.id}
+                                        points={point.point}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {memberVouchers && (
+                            <div className="product-sale-container">
+                                {memberVouchers.map((mv) => (
+
+                                    <ProductSale
+                                        key={mv.memberVoucherId}
+                                        saleAmount={mv.discount}
+                                        endDate={mv.endDate}
+                                        bought={true}
+                                        voucherDetailId={mv.voucherDetailId}
+                                        infiniteUses={false}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        <Dropdown
+                            options={categories.map(category => category.description)}
+                            onClick2={handleDropdownChange}
+                            onChange={handleDropdownChange} />
+                )}
+                        {allVouchers && (
+                            <div className="product-sale-container">
+                                {allVouchers.map((aV) => (
+                                    <ProductSale
+                                        key={aV.id}
+                                        saleAmount={aV.discount}
+                                        endDate={aV.endDate}
+                                        price={aV.price}
+                                        infiniteUses={true}
+                                        useCount={0}
+                                        voucherDetailId={aV.voucherDetailId}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {vouchers && (
+                            <div className="product-sale-container">
+                                {vouchers.map((v) => (
+                                    <ProductSale
+                                        key={v.voucherDetail.id}
+                                        saleAmount={v.voucherDetail.discount}
+                                        endDate={v.voucherDetail.endDate}
+                                        price={v.voucherDetail.price}
+                                        infiniteUses={true}
+                                        useCount={0}
+                                        voucherDetailId={v.voucherDetail.voucherDetailId}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
-                )}
-                {!noCategory && (
-                    <Dropdown
-                        options={categories.map(category => category.description)}
-                        onClick2={handleDropdownChange}
-                        onChange={handleDropdownChange} />
-                )}
-                {allVouchers && (
-                    <div className="product-sale-container">
-                        {allVouchers.map((aV) => (
-                            <ProductSale
-                                key={aV.id}
-                                saleAmount={aV.discount}
-                                endDate={aV.endDate}
-                                price={aV.price}
-                                infiniteUses={true}
-                                useCount={0}
-                                voucherDetailId={aV.voucherDetailId}
-                            />
-                        ))}
-                    </div>
-                )}
-                {vouchers && (
-                    <div className="product-sale-container">
-                        {vouchers.map((v) => (
-                            <ProductSale
-                                key={v.voucherDetail.id}
-                                saleAmount={v.voucherDetail.discount}
-                                endDate={v.voucherDetail.endDate}
-                                price={v.voucherDetail.price}
-                                infiniteUses={true}
-                                useCount={0}
-                                voucherDetailId={v.voucherDetail.voucherDetailId}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
 
 
 
-            <style jsx>{`
+                    <style jsx>{`
                 .content-container {
                     padding: 20px; /* Add padding to the container */
                     margin-top: 20px; /* Ensure there's space below the header */
@@ -203,8 +206,11 @@ const VoucherScreen = () => {
                     margin-top: 20px; /* Space above the product sale section */
                 }
             `}</style>
-            <Footer />
+                    <Footer />
 
+                </>
+            )
+            }
         </>
     );
 };
