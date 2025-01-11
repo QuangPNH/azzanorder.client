@@ -3,29 +3,31 @@ import DropdownItem from './DropdownItem';
 import { getCookie } from '../Account/SignUpForm/Validate';
 import API_URLS from '../../config/apiUrls';
 
-const Dropdown = ({ options, onChange, onClick}) => {
+const Dropdown = ({ options, onChange, onClick }) => {
     const [items, setItems] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-
+    const [noCategoryEvent, setNoCategoryEvent] = useState(false);
+    const tableqr = getCookie("tableqr");
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchLabels(getCookie("tableqr") ? getCookie("tableqr").split('/')[1] : null);
-            setItems(data);
-            
-            setSelectedItem();
-        };
-        fetchData();
-        console.log(items);
+        if (tableqr) {
+            fetchLabels(tableqr.split('/')[1]);
+        }
+
     }, []);
 
     const fetchLabels = async (id) => {
         try {
             const url = id ? API_URLS.API + `ItemCategory/GetAllItemCategoriesValid?id=${id}` : API_URLS.API + 'ItemCategory/GetAllItemCategoriesValid';
             const response = await fetch(url);
-            const data = await response.json();
-            
-            return data;
+            if (response.ok) {
+                const data = await response.json();
+                setItems(data);
+                setSelectedItem();
+            } else {
+                setNoCategoryEvent(true);
+            }
+
         } catch (error) {
             console.error('Error fetching labels:', error);
             return [];
@@ -45,30 +47,31 @@ const Dropdown = ({ options, onChange, onClick}) => {
 
     return (
         <>
-            <div className="dropdown">
-                <DropdownItem
-                    label={selectedItem ? selectedItem.description : 'ALL'}
-                    iconSrc={
-                        !isExpanded
-                            ? 'https://cdn.builder.io/api/v1/image/assets/TEMP/149dee1c832975b05bb91e7928d007f9cfbf8aff03b0c89e8080bdf1f9308e5f?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533'
-                            : 'https://cdn.builder.io/api/v1/image/assets/TEMP/60173c54a3ed014fe5a59386ec2a441bf961180f99b494537706a65900f41de2?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533&fbclid=IwZXh0bgNhZW0CMTEAAR2PR55PudHJ84uB3tn8Cx6eoZqDjOg8J1zPp-eGd945o90FACVUX1OLPTU_aem_fIfp5zTSe7E7_w3sPYsByg'
-                    }
-                    onClick={handleToggleDropdown}
-                />
+            {!noCategoryEvent && (
+                <div className="dropdown">
+                    <DropdownItem
+                        label={selectedItem ? selectedItem.description : 'ALL'}
+                        iconSrc={
+                            !isExpanded
+                                ? 'https://cdn.builder.io/api/v1/image/assets/TEMP/149dee1c832975b05bb91e7928d007f9cfbf8aff03b0c89e8080bdf1f9308e5f?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533'
+                                : 'https://cdn.builder.io/api/v1/image/assets/TEMP/60173c54a3ed014fe5a59386ec2a441bf961180f99b494537706a65900f41de2?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533&fbclid=IwZXh0bgNhZW0CMTEAAR2PR55PudHJ84uB3tn8Cx6eoZqDjOg8J1zPp-eGd945o90FACVUX1OLPTU_aem_fIfp5zTSe7E7_w3sPYsByg'
+                        }
+                        onClick={handleToggleDropdown}
+                    />
 
-                {isExpanded && (
-                    <div className="dropdown-items">
-                        {items.map((item, index) => (
-                            <DropdownItem
-                                key={index}
-                                label={item.description}
-                                onClick={() => handleSelectItem(item)}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-
+                    {isExpanded && (
+                        <div className="dropdown-items">
+                            {items.map((item, index) => (
+                                <DropdownItem
+                                    key={index}
+                                    label={item.description}
+                                    onClick={() => handleSelectItem(item)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
             <style>
                 {`
                 .dropdown {
