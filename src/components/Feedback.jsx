@@ -49,6 +49,7 @@ const FeedbackScreen = () => {
                 memberId: feedback?.memberId || JSON.parse(getCookie('memberInfo')).memberId,
                 employeeId: feedback?.employeeId || JSON.parse(getCookie('tableqr').split('/')[1])
             };
+            console.log(feedbackData);
             const response = await fetch(url, {
                 method: method,
                 headers: {
