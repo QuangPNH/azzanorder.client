@@ -36,8 +36,8 @@ const FeedbackScreen = () => {
 
     const handleSave = async () => {
         try {
-            const method = feedback?.memberId ? 'PUT' : 'POST';
-            const url = feedback?.memberId
+            const method = feedback ? 'PUT' : 'POST';
+            const url = feedback
                 ? API_URLS.API + 'Feedback/Update'
                 : API_URLS.API + 'Feedback/Add';
 
@@ -54,6 +54,7 @@ const FeedbackScreen = () => {
                 body: JSON.stringify(feedbackData)
             });
             if (response.ok) {
+                console.log(feedbackData);
                 console.log('Member info updated successfully');
             } else {
                 console.error('Failed to update member info');
