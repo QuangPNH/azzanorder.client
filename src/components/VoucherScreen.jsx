@@ -14,6 +14,7 @@ const VoucherScreen = () => {
     const [point, setPoint] = useState(false);
     const [categories, setCategories] = useState([]);
     const [memberVouchers, setMemberVouchers] = useState(false);
+    const [noCategory, setNoCategory] = useState(false);
     const manaId = getCookie("tableqr");
     useEffect(() => {
         if (manaId) {
@@ -56,26 +57,30 @@ const VoucherScreen = () => {
         try {
             const holdId = manaId;
             const response = category == '' ? await fetch(API_URLS.API + `VoucherDetail/ListVoucherDetail?employeeId=${holdId}`) : await fetch(API_URLS.API + `VoucherDetail/categoryId?categoryId=${category}&employeeId=${holdId}`);
-            const data = await response.json();
+            if (response.ok) {
+                const data = await response.json();
 
-            if (category == '') {
-                let a = [];
-                for (let i of data) {
-                    if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
-                        a.push(i);
+                if (category == '') {
+                    let a = [];
+                    for (let i of data) {
+                        if (i.endDate > new Date().toISOString() && i.startDate <= new Date().toISOString() || i.endDate === null) {
+                            a.push(i);
+                        }
                     }
+                    setAllVouchers(a);
                 }
-                setAllVouchers(a);
+                else {
+                    setAllVouchers(false);
+                    let a = [];
+                    for (let i of data) {
+                        if (i.voucherDetail.endDate > new Date().toISOString() && i.voucherDetail.startDate <= new Date().toISOString() || i.voucherDetail.endDate === null) {
+                            a.push(i);
+                        }
+                    }
+                    setVouchers(a);
+                }
             } else {
-                setAllVouchers(false);
-                let a = [];
-                for (let i of data) {
-                    if (i.voucherDetail.endDate > new Date().toISOString() && i.voucherDetail.startDate <= new Date().toISOString() || i.voucherDetail.endDate === null) {
-                        a.push(i);
-                    }
-                }
-                setVouchers(a);
-
+                setNoCategory(true);
             }
         } catch (error) {
             console.error('Error fetching menu items:', error);
@@ -146,11 +151,12 @@ const VoucherScreen = () => {
                         ))}
                     </div>
                 )}
-                <Dropdown
-                    options={categories.map(category => category.description)}
-                    onClick2={handleDropdownChange}
-                    onChange={handleDropdownChange} />
-
+                {!noCategory && (
+                    <Dropdown
+                        options={categories.map(category => category.description)}
+                        onClick2={handleDropdownChange}
+                        onChange={handleDropdownChange} />
+                )}
                 {allVouchers && (
                     <div className="product-sale-container">
                         {allVouchers.map((aV) => (
