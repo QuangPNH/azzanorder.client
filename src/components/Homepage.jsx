@@ -32,6 +32,11 @@ const Homepage = () => {
         const id = new URLSearchParams(search).get("tableqr");
         const fetchData = async () => {
             if (id) {
+                if (table != null && id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
+                    alert("Debug")
+                    setCookie('voucher', '', -1);
+                    setCookie('cartData', '', -1);
+                }
                 await fetchMenuItems(id.split('/')[1]);
                 if (memberId) {
                     await fetchRecentMenuItems(memberId, id.split('/')[1]);
@@ -51,10 +56,7 @@ const Homepage = () => {
                     setShowRecentlyOrdered(true);
                 }
             }
-            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
-                setCookie('voucher', '', -1);
-                setCookie('cartData', '', -1);
-            }           
+                     
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
