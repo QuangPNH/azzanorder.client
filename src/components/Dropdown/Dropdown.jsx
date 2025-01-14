@@ -50,7 +50,7 @@ const Dropdown = ({ options, onChange, onClick }) => {
             {!noCategoryEvent && (
                 <div className="dropdown">
                     <DropdownItem
-                        label={selectedItem ? selectedItem.description : 'ALL'}
+                        label={selectedItem ? selectedItem.itemCategoryName : 'ALL'}
                         iconSrc={
                             !isExpanded
                                 ? 'https://cdn.builder.io/api/v1/image/assets/TEMP/149dee1c832975b05bb91e7928d007f9cfbf8aff03b0c89e8080bdf1f9308e5f?placeholderIfAbsent=true&apiKey=a971ff9380c749fd99c76f2c51698533'
@@ -64,7 +64,7 @@ const Dropdown = ({ options, onChange, onClick }) => {
                             {items.map((item, index) => (
                                 <DropdownItem
                                     key={index}
-                                    label={item.description}
+                                    label={item.itemCategoryName}
                                     onClick={() => handleSelectItem(item)}
                                 />
                             ))}
