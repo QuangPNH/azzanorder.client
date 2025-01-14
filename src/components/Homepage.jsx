@@ -246,7 +246,7 @@ const Homepage = () => {
         try {
             const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
-            if(!response.ok){
+            if (response.status === 422){
                 window.location.href = "https://oas-manager-owner-a9bvaxhpbzf5h8ca.southeastasia-01.azurewebsites.net/";
             }
             const data = await response.json();
