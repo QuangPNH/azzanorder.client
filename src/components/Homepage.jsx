@@ -31,14 +31,19 @@ const Homepage = () => {
         const table = getCookie('tableqr');
         const fetchData = async () => {
             if (table) {
-                console.log(table);
                 await fetchMenuItems(table.split('/')[1]);
                 if (memberId) {
                     await fetchRecentMenuItems(memberId, table.split('/')[1]);
                     setShowRecentlyOrdered(true);
                 }
+                
             }
             if (id) {
+                if (table != null && id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
+                    alert("Debug")
+                    setCookie('voucher', '', -1);
+                    setCookie('cartData', '', -1);
+                }
                 await fetchMenuItems(id.split('/')[1]);
                 if (memberId) {
                     await fetchRecentMenuItems(memberId, id.split('/')[1]);
@@ -51,11 +56,7 @@ const Homepage = () => {
                 generateNotiChange(id, 'Welcome to our restaurant');
                 runFetchNotiChangeContinuously(id);
             }
-            if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
-                alert("Debug");
-                setCookie('voucher', '', -1);
-                setCookie('cartData', '', -1);
-            }           
+                     
         };
 
         if (status === "success" && !hasProcessedOrder.current) {
