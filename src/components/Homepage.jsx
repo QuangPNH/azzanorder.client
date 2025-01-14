@@ -20,7 +20,7 @@ const Homepage = () => {
     const [recentMenuItems, setRecentMenuItems] = useState([]);
     const [showRecentlyOrdered, setShowRecentlyOrdered] = useState(false);
     const search = useLocation().search;
-    const id = new URLSearchParams(search).get("tableqr");
+    
     const status = new URLSearchParams(search).get("status");
     const hasRegisteredServiceWorker = useRef(false);
     const hasProcessedOrder = useRef(false);
@@ -29,15 +29,8 @@ const Homepage = () => {
         const memberInfo = getCookie('memberInfo');
         const memberId = memberInfo ? JSON.parse(memberInfo).memberId : null;
         const table = getCookie('tableqr');
+        const id = new URLSearchParams(search).get("tableqr");
         const fetchData = async () => {
-            if (table) {
-                console.log(table);
-                await fetchMenuItems(table.split('/')[1]);
-                if (memberId) {
-                    await fetchRecentMenuItems(memberId, table.split('/')[1]);
-                    setShowRecentlyOrdered(true);
-                }
-            }
             if (id) {
                 await fetchMenuItems(id.split('/')[1]);
                 if (memberId) {
@@ -50,6 +43,13 @@ const Homepage = () => {
                 await fetchOrderExits(id.split('/')[0], id.split('/')[1]);
                 generateNotiChange(id, 'Welcome to our restaurant');
                 runFetchNotiChangeContinuously(id);
+            }else
+            if (table) {
+                await fetchMenuItems(table.split('/')[1]);
+                if (memberId) {
+                    await fetchRecentMenuItems(memberId, table.split('/')[1]);
+                    setShowRecentlyOrdered(true);
+                }
             }
             if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
                 setCookie('voucher', '', -1);
@@ -244,7 +244,7 @@ const Homepage = () => {
         try {
             const url = manaId ? API_URLS.API + `MenuItem/top4?id=${manaId}` : API_URLS.API + 'MenuItem/top4';
             const response = await fetch(url);
-            if(!response.ok){
+            if (response.status === 422) {
                 window.location.href = "https://oas-manager-owner-a9bvaxhpbzf5h8ca.southeastasia-01.azurewebsites.net/";
             }
             const data = await response.json();

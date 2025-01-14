@@ -58,28 +58,32 @@ const Frame = () => {
                 <>
                     <ShowMoreLink title="LIMITED COMBO" />
                     <div className="carousel-container">
+                    {promotions.length > 2 && (
                         <div className="small-image-container left">
                             <img
-                                className="small-image"
-                                alt={leftPromotion?.title}
-                                src={leftPromotion?.image}
-                                onClick={handlePrev}
+                            className="small-image"
+                            alt={leftPromotion?.title}
+                            src={leftPromotion?.image}
+                            onClick={handlePrev}
                             />
                         </div>
-                        <div className="big-image-container">
-                            <img className="big-image" alt={bigPromotion?.title} src={bigPromotion?.image} />
-                            <div className="promotion-details">
-                                <h2>{bigPromotion?.title}</h2>
-                            </div>
+                    )}
+                    <div className="big-image-container">
+                        <img className="big-image" alt={bigPromotion?.title} src={bigPromotion?.image} />
+                        <div className="promotion-details">
+                            <h2>{bigPromotion?.title}</h2>
                         </div>
+                    </div>
+                    {promotions.length > 1 && (
                         <div className="small-image-container right">
                             <img
-                                className="small-image"
-                                alt={rightPromotion?.title}
-                                src={rightPromotion?.image}
-                                onClick={handleNext}
+                            className="small-image"
+                            alt={rightPromotion?.title}
+                            src={rightPromotion?.image}
+                            onClick={handleNext}
                             />
                         </div>
+                    )}
 
                         <style jsx>{`
                             .carousel-container {
