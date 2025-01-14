@@ -100,7 +100,7 @@ export async function postOrder(amount, isCash) {
             postStaffNotiChannel(tableQrParts[0], tableQrParts[1], "New Confirmed Order Paid With Bank Transfer");
             sendPostRequest("Confirm Order Paid With Bank Transfer", "OrderSuccesses");
         }
-        if (memberIn) {
+        if (memberIn && !isCash) {
             AddPoint(JSON.parse(memberIn).memberId, amount);
 
         }
