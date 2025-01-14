@@ -10,6 +10,8 @@ import API_URLS from '../config/apiUrls';
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
+    const [pointsUpdated, setPointsUpdated] = useState(false);
+
     useEffect(() => {  
 
         const tableqr = getCookie("tableqr");  
@@ -59,8 +61,8 @@ const OrderTrackScreen = () => {
     const updateMemberPoints = async (memberId) => {
         if (memberId != '') {
             try {
-
                 await fetch(API_URLS.API + `Member/UpdatePoints/memberId/point?memberId=${memberId}&point=25`);
+                setPointsUpdated(true);
             } catch (error) {
                 console.error('Error updating member points:', error);
             }
@@ -193,6 +195,7 @@ const OrderTrackScreen = () => {
                     </div>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {!pointsUpdated && (
                     <Button
                         type="submit"
                         text="Clean table"
@@ -200,6 +203,7 @@ const OrderTrackScreen = () => {
                         style={{ backgroundColor: allOrdersCompleted ? 'Green' : 'Gray', cursor: allOrdersCompleted ? 'pointer' : 'not-allowed' }}
                         disabled={!allOrdersCompleted}
                     />
+                )}
                     <div style={{ textAlign: 'center', marginTop: '20px', color: 'black' }}>
                         <p>Click to notify staff to clean table once you finished the dishes.</p>
                         <p>Point will be earned.</p>
