@@ -52,6 +52,7 @@ const Homepage = () => {
                 runFetchNotiChangeContinuously(id);
             }
             if (id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
+                alert("Debug");
                 setCookie('voucher', '', -1);
                 setCookie('cartData', '', -1);
             }           
