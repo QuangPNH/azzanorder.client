@@ -33,7 +33,6 @@ const Homepage = () => {
         const fetchData = async () => {
             if (id) {
                 if (table != null && id.split('/')[1] != getCookie('tableqr').split('/')[1]) {
-                    alert("Debug")
                     setCookie('voucher', '', -1);
                     setCookie('cartData', '', -1);
                 }
