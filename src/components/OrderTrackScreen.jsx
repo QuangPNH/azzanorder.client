@@ -39,8 +39,6 @@ const OrderTrackScreen = () => {
             console.error('Error fetching orders:', error);
         }
     };
-
-    x
     
     const fetchCustomerOrder = async (customerId) => {
         try {
