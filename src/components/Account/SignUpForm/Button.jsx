@@ -1,12 +1,12 @@
 ﻿import React from "react";
 
-function Button({ text, style, disabled }) {
+function Button({ text, style, disabled, onClick }) {
     // Calculate the width based on the text length
     const buttonWidth = `${30 + text.length * 10}px`;
 
     return (
         <>
-            <button className="submit-button" style={style} disabled={disabled}>{text}</button>
+            <button className="submit-button" style={style} disabled={disabled} onClick={onClick}>{text}</button>
             <style jsx>{`
                 .submit-button {
                     align-self: center;
