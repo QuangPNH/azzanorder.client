@@ -58,18 +58,7 @@ const OrderTrackScreen = () => {
 
     const allOrdersCompleted = orders && orders.length > 0 && orders.every(order => order.status === true);
 
-    const updateMemberPoints = async (memberId) => {
-        if (memberId != '') {
-            try {
-                await fetch(API_URLS.API + `Member/UpdatePoints/memberId/point?memberId=${memberId}&point=25`);
-                setPointsUpdated(true);
-            } catch (error) {
-                console.error('Error updating member points:', error);
-            }
-            window.location.href = '/';
-        }
-        window.location.href = '/';
-    };
+
     const fetchNotiChange = async (tableQr) => {
         try {
             const response = await fetch(API_URLS.API + `NotiChanges/tableName/${tableQr}`);
@@ -134,9 +123,7 @@ const OrderTrackScreen = () => {
     //
 
     const handleButtonClick = () => {
-        if (allOrdersCompleted) {
-            updateMemberPoints(orders[0].memberId);
-        }
+        allOrdersCompleted = !allOrdersCompleted;
     };
 
     const handleReturnHome = () => {
@@ -206,7 +193,6 @@ const OrderTrackScreen = () => {
                 )}
                     <div style={{ textAlign: 'center', marginTop: '20px', color: 'black' }}>
                         <p>Click to notify staff to clean table once you finished the dishes.</p>
-                        <p>Point will be earned.</p>
                     </div>
                 </div>
             </div>

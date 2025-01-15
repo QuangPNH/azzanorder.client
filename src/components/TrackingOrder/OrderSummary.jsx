@@ -3,7 +3,7 @@
 const OrderSummary = () => {
     return (
         <div className="your-order">
-            <div className="your-order-title">Your Order</div>
+            <div className="your-order-title">Tracking Order</div>
             <style jsx>{`
                 .your-order {
                     width: 100%;

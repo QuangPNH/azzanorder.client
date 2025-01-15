@@ -97,6 +97,7 @@ const ItemDetail = ({ closeModal, imageSrc, key, title, price, discount, cate, d
                 parsedData.push(newItem);
             }
         setCookie("cartData", JSON.stringify(parsedData), 0.02);
+        alert("Add success!");
     };
     
     const modifiedDesc = desc ? desc.split('/').slice(1).join('/') : desc;

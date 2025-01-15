@@ -75,6 +75,7 @@ function YNWidgetVoucher({ title, errorTitle, onClose, voucherDetailId }) {
                 }) // Chuyển đổi đối tượng thành JSON
             });
             const data = await response.json();
+            alert("Buy success");
             event.preventDefault();
             event.stopPropagation();
             onClose();

@@ -47,6 +47,7 @@ const ProductCard = ({ imageSrc, title, price, desc, cate, id }) => {
             parsedData.push(newItem);
         }
         setCookie("cartData", JSON.stringify(parsedData), 0.02);
+        alert("Add Success");
     };
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
