@@ -10,7 +10,6 @@ import API_URLS from '../config/apiUrls';
 const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
-    const [pointsUpdated, setPointsUpdated] = useState(false);
     const [allOrdersCompleted, setAllOrdersCompleted] = useState(false);
     useEffect(() => {  
 
@@ -33,7 +32,7 @@ const OrderTrackScreen = () => {
             if (response.ok) {
                 const data = await response.json();
                 setOrders(data);
-                setAllOrdersCompleted = orders && orders.length > 0 && orders.every(order => order.status === true);
+                setAllOrdersCompleted(data && data.length > 0 && data.every(order => order.status === true));
             }
         } catch (error) {
             console.error('Error fetching orders:', error);
@@ -125,7 +124,7 @@ const OrderTrackScreen = () => {
     //
 
     const handleButtonClick = () => {
-        allOrdersCompleted = !allOrdersCompleted;
+        setAllOrdersCompleted(false);
     };
 
     const handleReturnHome = () => {
