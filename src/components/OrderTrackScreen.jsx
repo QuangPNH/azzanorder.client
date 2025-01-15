@@ -11,7 +11,7 @@ const OrderTrackScreen = () => {
     const [orders, setOrders] = useState([]);
     const [customerOrder, setCustomerOrder] = useState([]);
     const [pointsUpdated, setPointsUpdated] = useState(false);
-
+    const [allOrdersCompleted, setAllOrdersCompleted] = useState(false);
     useEffect(() => {  
 
         const tableqr = getCookie("tableqr");  
@@ -24,7 +24,8 @@ const OrderTrackScreen = () => {
         if (getCookie("memberInfo")) {  
             fetchCustomerOrder(JSON.parse(getCookie("memberInfo")).memberId);  
         }  
-    }, []);
+        
+    }, [allOrdersCompleted]);
 
     const fetchOrders = async (tableQr, id) => {
         try {
@@ -32,12 +33,15 @@ const OrderTrackScreen = () => {
             if (response.ok) {
                 const data = await response.json();
                 setOrders(data);
+                setAllOrdersCompleted = orders && orders.length > 0 && orders.every(order => order.status === true);
             }
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
     };
 
+    x
+    
     const fetchCustomerOrder = async (customerId) => {
         try {
             const response = await fetch(API_URLS.API + `Order/GetCustomerOrder/${customerId}`);
@@ -56,7 +60,7 @@ const OrderTrackScreen = () => {
         if (status === true) return 3;
     };
 
-    const allOrdersCompleted = orders && orders.length > 0 && orders.every(order => order.status === true);
+   
 
 
     const fetchNotiChange = async (tableQr) => {
@@ -182,7 +186,6 @@ const OrderTrackScreen = () => {
                     </div>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {!pointsUpdated && (
                     <Button
                         type="submit"
                         text="Clean table"
@@ -190,7 +193,7 @@ const OrderTrackScreen = () => {
                         style={{ backgroundColor: allOrdersCompleted ? 'Green' : 'Gray', cursor: allOrdersCompleted ? 'pointer' : 'not-allowed' }}
                         disabled={!allOrdersCompleted}
                     />
-                )}
+                
                     <div style={{ textAlign: 'center', marginTop: '20px', color: 'black' }}>
                         <p>Click to notify staff to clean table once you finished the dishes.</p>
                     </div>
