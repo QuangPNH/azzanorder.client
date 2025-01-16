@@ -1,8 +1,8 @@
 // src/config/apiUrls.js
 const API_URLS = {
-    API: "https://oas-main-api-cwf5hnd9apbhgnhn.southeastasia-01.azurewebsites.net/api/",
-    PAYOS: "https://payos-handling-d5egafdqeqh7e5dg.southeastasia-01.azurewebsites.net/",
-    NOTHUB: "https://pushnotiapi-h3dkf2f6h6f5cbcj.southeastasia-01.azurewebsites.net/"
+    API: "https://oasmainapi-g7e8fwarcsb0f2ff.southeastasia-01.azurewebsites.net/api/",
+    PAYOS: "https://payoshandling-dgg9hkh2ccfgcgdq.southeastasia-01.azurewebsites.net/",
+    NOTHUB: "https://pushnotiapis-arhzeqchhrg6adem.southeastasia-01.azurewebsites.net/"
     // Add other endpoints as needed
   };
   
