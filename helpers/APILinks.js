@@ -85,7 +85,7 @@ export const LIST_FEEDBACK = `${LOCALHOST_API}/api/MessengerBox`
 
 
 // LINK SHOP CLIENT
-export const LIST_PRODUCT = `https://white-grass-05f73fc00.4.azurestaticapps.net/listProduct/`;
+export const LIST_PRODUCT = `https://thankful-coast-01e9cae00.4.azurestaticapps.net/listProduct/`;
 export const API_ORDER = `${LOCALHOST_API}/api/Order`;
 
 // LINK BLOG
