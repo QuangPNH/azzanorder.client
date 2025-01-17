@@ -244,3 +244,8 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/.vs/azzanorder.client/CopilotIndices/0.2.1657.32929/CodeChunks.db
+/.vs/azzanorder.client/CopilotIndices/0.2.1657.32929/CodeChunks.db-wal
+/.vs/azzanorder.client/CopilotIndices/0.2.1657.32929/CodeChunks.db-shm
+/.vs/azzanorder.client/CopilotIndices/0.2.1657.32929/SemanticSymbols.db-shm
+/.vs/azzanorder.client/CopilotIndices/0.2.1657.32929/SemanticSymbols.db-wal
