@@ -20,7 +20,7 @@ function LoginWidget({ title, icon, placeholder, buttonText, onCheck }) {
                 const memberInfo = await response.json();
                 memberInfo.image = "null";
                 setCookie('memberInfo', JSON.stringify(memberInfo), 100);
-                alert("Welcome " + memberInfo.Phone + "!");
+                alert("Welcome " + memberInfo.phone);
                 window.location.href = '';
             } else if (response.status === 404) {
                 const result = 'fail';
