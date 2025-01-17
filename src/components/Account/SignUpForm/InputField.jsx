@@ -1,6 +1,6 @@
 ﻿import React from "react";
 
-function InputField({ icon, placeholder, value, onChange }) {
+function InputField({ icon, placeholder, value, onChange, inputMode, pattern }) {
     return (
         <>
             <div className="input-container">
@@ -12,6 +12,8 @@ function InputField({ icon, placeholder, value, onChange }) {
                     placeholder={placeholder}
                     className="input-field"
                     aria-label={placeholder}
+                    inputMode={inputMode}
+                    pattern={pattern}
                 />
             </div>
             <style jsx>{`

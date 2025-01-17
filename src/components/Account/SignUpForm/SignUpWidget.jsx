@@ -27,8 +27,10 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
                 memberInfo = await response.json();
                 sessionStorage.setItem('memberInfo', JSON.stringify(memberInfo));
                 setOTPSent(true);  // Proceed to OTP step
+                alert("OTP has been sent to your phone. Please check your sms.");
             } else if (response.status === 400) {
                 const result = 'fail';
+                alert("Phone number has already been existed.");
                 onCheck(result);
             }
         } catch (error) {
@@ -90,6 +92,8 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
                                 onChange={handlePhoneNumberChange}
                                 icon={icon}
                                 placeholder={placeholder}
+                                inputMode="numeric"
+                                pattern="[0-9]*"
                             />
                             <Button type="submit" text="Send OTP" />
                         </>
@@ -100,6 +104,8 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
                                 onChange={handleOTPChange}
                                 icon={icon}
                                 placeholder="Enter OTP"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
                             />
                             <Button type="submit" text="Verify OTP" />
                         </>

@@ -20,6 +20,7 @@ function LoginWidget({ title, icon, placeholder, buttonText, onCheck }) {
                 const memberInfo = await response.json();
                 memberInfo.image = "null";
                 setCookie('memberInfo', JSON.stringify(memberInfo), 100);
+                alert("Hello " + memberInfo.memberName);
                 window.location.href = '';
             } else if (response.status === 404) {
                 const result = 'fail';
@@ -44,6 +45,8 @@ function LoginWidget({ title, icon, placeholder, buttonText, onCheck }) {
                         onChange={handlePhoneNumberChange}
                         icon={icon}
                         placeholder={placeholder}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                     />
                     <Button type="submit" text={buttonText} />
                 </form>
