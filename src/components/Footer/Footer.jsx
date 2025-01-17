@@ -19,6 +19,9 @@ const Footer = () => {
         if (response.ok) {
             const data = await response.json();
             const value = isImage ? data.image : data.description || defaultValue;
+            if (isImage) {
+                setData(value);
+            }else
             setData(value.includes('/') ? value.split('/')[1] : value);
         } else {
             setData(defaultValue);
