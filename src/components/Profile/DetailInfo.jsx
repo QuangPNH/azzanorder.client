@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import ProfileItem from "./ProfileItem"; // Assuming ProfileItem is in the same folder
 
-const DetailInfo = ({ title, memberDetail, onChange }) => {
+const DetailInfo = ({ title, memberDetail, onChange, readOnly }) => {
     const [value, setValue] = useState(memberDetail);
 
     useEffect(() => {
@@ -22,6 +22,7 @@ const DetailInfo = ({ title, memberDetail, onChange }) => {
                     type="text"
                     value={value}
                     onChange={handleChange}
+                    readOnly={readOnly}
                 />
             </section>
             <style jsx>{`

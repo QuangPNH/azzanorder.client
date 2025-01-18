@@ -104,7 +104,12 @@ const MemberProfile = () => {
                 </div>
 
                 <div className="detail-container">
-                    <DetailInfo title="Mobile Phone" memberDetail={memberInfo?.phone} onChange={(value) => handleChange('phone', value)} />
+                    <DetailInfo
+                        title="Mobile Phone"
+                        memberDetail={memberInfo?.phone}
+                        onChange={(value) => handleChange('phone', value)}
+                        readOnly={true}
+                    />
                     <DetailInfo title="Mail" memberDetail={memberInfo?.gmail} onChange={(value) => handleChange('gmail', value)} />
                     <DetailDateTime title="Birthday" memberDetail={memberInfo?.birthDate} onChange={(value) => handleChange('birthDate', value)} />
                     <DetailCheckbox title="Gender" memberDetail={memberInfo?.gender} onChange={(value) => handleChange('gender', value)} />
