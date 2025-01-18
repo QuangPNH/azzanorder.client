@@ -53,7 +53,7 @@ function SignUpWidget({ title, icon, placeholder, buttonText, onCheck }) {
                 });
                 const data = await response.json();
                 setCookie('memberInfo', JSON.stringify(data), 100);
-                alert("Hello " + data.memberName);
+                alert("Hello " + data.phone);
                 console.log('OTP verified and member info saved', response);
                 window.location.href = '';
             } else {
